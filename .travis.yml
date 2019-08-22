@@ -16,7 +16,7 @@ install:
   - pip3 install pipenv
   - pipenv install --dev
 script:
-  - pipenv shell
+  - source "$(pipenv --venv)"/bin/activate
   - cd src
   - flake8 .
   - python manage.py makemigrations
