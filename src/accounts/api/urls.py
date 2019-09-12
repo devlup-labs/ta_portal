@@ -4,7 +4,7 @@ from accounts.api.views import TeachingAssistantViewSet, UserViewSet, Authentica
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
-router.register(r"ta-profile", TeachingAssistantViewSet)
+router.register(r"ta-profiles", TeachingAssistantViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
