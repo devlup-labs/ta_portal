@@ -7,7 +7,7 @@ from accounts.api.views import TeachingAssistantCoordinatorViewSet
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r"ta-profiles", TeachingAssistantViewSet)
-router.register(r"tacoordinator-profiles",TeachingAssistantCoordinatorViewSet)
+router.register(r"tacoordinator-profiles", TeachingAssistantCoordinatorViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
