@@ -1,57 +1,36 @@
-<template>
-  <v-app>
-    <v-app-bar app clipped-left color="primary" height="100">
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-col >
-        <v-row>TA MANAGEMENT PORTAL</v-row>
-        <v-row>Department of Electrical Engineering,IIT JODHPUR</v-row>
-      </v-col>
-      </v-col>
-      <div class="flex-grow-1"></div>
-      <div class="flex-1"></div>
-      <div class="flex-1"></div>
-      <v-avatar color=" ">
-        <v-icon >mdi-account-circle</v-icon>
-      </v-avatar>
-      <v-col >
-        <v-row col="2" offset-md="4">Name</v-row>
-        <v-row col="2">Teaching Assistant</v-row>
-      </v-col>
-    </v-app-bar>
-    <v-navigation-drawer v-model="drawer" app clipped color="grey lighten-4">
-      <v-list dense class="grey lighten-4">
-        <template v-for="(item, i) in items">
-          <v-row v-if="item.heading" :key="i" align="center">
-            <v-col cols="6">
-              <v-subheader v-if="item.heading">
-                {{ item.heading }}
-              </v-subheader>
-            </v-col>
-          </v-row>
-          <v-divider
-            v-else-if="item.divider"
+<template lang="pug">
+  v-app
+    v-app-bar(app clipped-left color="primary" height="100")
+      v-app-bar-nav-icon(@click="drawer = !drawer")
+      v-col
+        v-row(TA MANAGEMENT PORTAL)
+        v-row(Department of Electrical Engineering,IIT JODHPUR)
+       div(class="flex-grow-1")
+       div(class="flex-1")
+       div(class="flex-1")
+       v-avatar(color=" ")
+        v-icon(mdi-account-circle)
+      v-col
+        v-row(col="2" offset-md="4") Name
+        v-ro(col="2") Teaching Assistant
+    v-navigation-drawer(v-model="drawer" app clipped color="grey lighten-4")
+      v-list(dense class="grey lighten-4")
+        template(v-for="(item, i) in items")
+          v-row(v-if="item.heading" :key="i" align="center")
+            v-col(cols="6")
+              v-subheader(v-if="item.heading") {{ item.heading }}
+          v-divider(v-else-if="item.divider"
             :key="i"
             dark
-            class="my-4"
-          ></v-divider>
-          <v-list-item v-else :key="i" @click="">
-            <v-list-item-action>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title class="grey--text">
-                {{ item.text }}
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </template>
-      </v-list>
-    </v-navigation-drawer>
+            class="my-4")
+          v-list-item v-else :key="i" @click=""
+            v-list-item-action
+              v-icon({{ item.icon }})
+            v-list-item-content
+              v-list-item-title(class="grey--text") {{ item.text }}
 
-    <v-content>
-      <router-view />
-    </v-content>
-  </v-app>
+    v-content
+      router-view
 </template>
 
 <script>
