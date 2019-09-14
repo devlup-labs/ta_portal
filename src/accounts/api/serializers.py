@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from accounts.models import TeachingAssistantProfile, TeachingAssistantCoordinatorProfile
+from accounts.models import TeachingAssistantProfile , TeachingAssistantSupervisorProfile,TeachingAssistantCoordinatorProfile
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -18,4 +18,10 @@ class TeachingAssistantProfileSerializer(serializers.ModelSerializer):
 class TeachingAssistantCoordinatorProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = TeachingAssistantCoordinatorProfile
+        fields = '__all__'
+
+
+class TeachingAssistantSupervisorProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TeachingAssistantSupervisorProfile
         fields = '__all__'
