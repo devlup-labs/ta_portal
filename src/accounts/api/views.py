@@ -1,6 +1,8 @@
 from rest_framework import viewsets
-from accounts.api.serializers import TeachingAssistantProfileSerializer, UserSerializer
-from accounts.models import TeachingAssistantProfile
+from accounts.api.serializers import TeachingAssistantProfileSerializer, UserSerializer, \
+    TeachingAssistantCoordinatorProfileSerializer
+
+from accounts.models import TeachingAssistantProfile, TeachingAssistantCoordinatorProfile
 from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -31,3 +33,11 @@ class AuthenticationCheckAPIView(APIView):
         }
         status_code = status.HTTP_200_OK if authenticated else status.HTTP_401_UNAUTHORIZED
         return Response(data, status=status_code)
+
+
+class TeachingAssistantCoordinatorViewSet(viewsets.ModelViewSet):
+    serializer_class = TeachingAssistantCoordinatorProfileSerializer
+    queryset = TeachingAssistantCoordinatorProfile.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

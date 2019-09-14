@@ -2,9 +2,12 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from accounts.api.views import TeachingAssistantViewSet, UserViewSet, AuthenticationCheckAPIView
 
+from accounts.api.views import TeachingAssistantCoordinatorViewSet
+
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r"ta-profiles", TeachingAssistantViewSet)
+router.register(r"tacoordinator-profiles",TeachingAssistantCoordinatorViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
