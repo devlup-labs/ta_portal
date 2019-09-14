@@ -1,33 +1,73 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        text
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+    <v-app-bar app clipped-left color="primary" height="100">
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-col >
+        <v-row>TA MANAGEMENT PORTAL</v-row>
+        <v-row>Department of Electrical Engineering,IIT JODHPUR</v-row>
+      </v-col>
+      </v-col>
+      <div class="flex-grow-1"></div>
+      <div class="flex-1"></div>
+      <div class="flex-1"></div>
+      <v-avatar color=" ">
+        <v-icon >mdi-account-circle</v-icon>
+      </v-avatar>
+      <v-col >
+        <v-row col="2" offset-md="4">Name</v-row>
+        <v-row col="2">Teaching Assistant</v-row>
+      </v-col>
     </v-app-bar>
+    <v-navigation-drawer v-model="drawer" app clipped color="grey lighten-4">
+      <v-list dense class="grey lighten-4">
+        <template v-for="(item, i) in items">
+          <v-row v-if="item.heading" :key="i" align="center">
+            <v-col cols="6">
+              <v-subheader v-if="item.heading">
+                {{ item.heading }}
+              </v-subheader>
+            </v-col>
+          </v-row>
+          <v-divider
+            v-else-if="item.divider"
+            :key="i"
+            dark
+            class="my-4"
+          ></v-divider>
+          <v-list-item v-else :key="i" @click="">
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title class="grey--text">
+                {{ item.text }}
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </template>
+      </v-list>
+    </v-navigation-drawer>
 
     <v-content>
-      <router-view/>
+      <router-view />
     </v-content>
   </v-app>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
+  name: "App",
   data: () => ({
-    //
-  }),
+    drawer: null,
+    items: [
+      { heading: "TA Assignments" },
+      { icon: "mdi-notebook", text: "Current" },
+      { icon: "mdi-reload", text: "Past" },
+      { divider: true },
+      { heading: "Academics" },
+      { icon: "mdi-calendar", text: "Calendar" },
+      { icon: "mdi-calendar-clock", text: "Time Table" }
+    ]
+  })
 };
 </script>

@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     v-toolbar(primary)
-      v-toolbar-title.blue--text 
+      v-toolbar-title.blue--text
         p.headline.mb-0  Login
 
     v-card
