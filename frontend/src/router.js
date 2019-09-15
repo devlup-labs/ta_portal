@@ -16,7 +16,7 @@ export default new Router({
     },
     {
       path: "/profile",
-      name: "profile",git
+      name: "profile",
       component: Profile
     },
     {
