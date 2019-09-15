@@ -1,8 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-// import Home from "./views/Home.vue";
+//import Home from "./views/Home.vue";
 import Login from "./views/Login";
-import Dashboard from "./views/Dashboard";
 import Profile from "./views/Profile";
 Vue.use(Router);
 
@@ -19,11 +18,6 @@ export default new Router({
       path: "/profile",
       name: "profile",
       component: Profile
-    },
-    {
-      path: "/dashboard",
-      name: "Dashboard",
-      component: Dashboard
     },
     {
       path: "/about",
