@@ -47,9 +47,11 @@
 
 <script>
 import googleSignInBtn from "../assets/btn_google_light_normal.svg";
+import HeaderToolbar from "./HeaderToolbar";
 export default {
   name: "LoginCard",
-  data() {
+  components: { HeaderToolbar },
+    data() {
     return {
       valid: false,
       showPassword: false,
