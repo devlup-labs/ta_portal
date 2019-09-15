@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from accounts.models import TeachingAssistantProfile , TeachingAssistantSupervisorProfile,TeachingAssistantCoordinatorProfile
+from accounts.models import TeachingAssistantProfile, TeachingAssistantSupervisorProfile,\
+    TeachingAssistantCoordinatorProfile
 
 
 class UserSerializer(serializers.ModelSerializer):

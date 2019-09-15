@@ -2,7 +2,8 @@ from rest_framework import viewsets
 from accounts.api.serializers import TeachingAssistantProfileSerializer, UserSerializer, \
     TeachingAssistantCoordinatorProfileSerializer, TeachingAssistantSupervisorProfileSerializer
 
-from accounts.models import TeachingAssistantProfile, TeachingAssistantCoordinatorProfile ,TeachingAssistantSupervisorProfile
+from accounts.models import TeachingAssistantProfile, TeachingAssistantCoordinatorProfile,\
+    TeachingAssistantSupervisorProfile
 from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -41,6 +42,8 @@ class TeachingAssistantCoordinatorViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
 class TeachingAssistantSupervisorViewSet(viewsets.ModelViewSet):
     serializer_class = TeachingAssistantSupervisorProfileSerializer
     queryset = TeachingAssistantSupervisorProfile.objects.all()
