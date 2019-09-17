@@ -12,3 +12,7 @@ new Vue({
   vuetify,
   render: h => h(App)
 }).$mount("#app");
+
+import httpClientPlugin from "./plugins/httpClient";
+
+Vue.use(httpClientPlugin);
