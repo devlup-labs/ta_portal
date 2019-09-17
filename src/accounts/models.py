@@ -16,7 +16,8 @@ class TeachingAssistantProfile(models.Model):
     phone = models.CharField(max_length=10)
     alternate_phone = models.CharField(max_length=10, blank=True)
     research_area = models.CharField(max_length=100, blank=True)
-    educational_background = models.CharField(max_length=20)
+    btech_specialization = models.CharField(max_length=20)
+    mtech_specialization = models.CharField(max_length=20, blank=True)
 
     def __str__(self):
         return self.roll_no
