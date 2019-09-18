@@ -1,4 +1,3 @@
-from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from core.api.views import CourseViewSet, FeedbackViewSet, AssignmentViewSet
 
