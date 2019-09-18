@@ -1,36 +1,30 @@
 <template lang="pug">
   div
-    v-toolbar(primary)
-      v-toolbar-title.blue--text
-        p.headline.mb-0  Login
-
     v-card
-      v-card-text(pt-4)
-        div
+        v-card-title Sign in to TA Portal
+        v-card-text(pt-4)
+         div
           v-form(v-model="valid" ref="form")
-            v-text-field(
-              outline
-              prepend-icon="mdi-email"
-              label="Email"
-              v-model="email"
-              :rules="emailRules"
-              required
-            )
-
-            v-text-field(
-              outline
-              prepend-icon="mdi-lock"
+            h3 USERNAME
+              v-text-field(
+                outlined
+                v-model="email"
+                :rules="emailRules"
+                required
+              )
+            h3 PASSWORD
+              v-text-field(
+              outlined
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="() => (showPassword = !showPassword)"
               :rules="passwordRules"
               :type="showPassword ? 'password' : 'text'"
-              label="Password"
               min="8"
               required
               v-model="password"
             )
             v-layout(justify-center)
-              v-btn(color="primary") Login
+              v-btn(rounded color="#009999" dark extra large) Log in
 
             v-layout(justify-center)
               h4 OR
@@ -68,4 +62,7 @@ export default {
   width: 100%;
   height: auto;
 }
+    .v-card-title {
+
+    }
 </style>
