@@ -14,12 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.contrib.auth.views import LogoutView
 
+from ta_portal.views import VueView
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include("accounts.api.urls")),
+    path('', include('social_django.urls', namespace='social')),
     path('logout/', LogoutView.as_view(next_page='/login'), name='logout'),
-    path("api-auth/", include("rest_framework.urls")),
+    path('admin/', admin.site.urls),
+    path('api/', include("api.urls"))
+]
+
+urlpatterns += [
+    re_path(r'.*', VueView.as_view(), name='vue-js')    # Catch all URL to send all urls to VueJS
 ]
