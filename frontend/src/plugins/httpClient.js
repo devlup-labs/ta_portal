@@ -1,10 +1,8 @@
 import axios from "axios";
-import { BACKEND_API_ADDRESS } from "../config";
 import store from "../store";
 import router from "../router";
 
 const httpClient = axios.create({
-  //baseURL: BACKEND_API_ADDRESS,
   xsrfCookieName: "csrftoken",
   xsrfHeaderName: "X-CSRFToken"
 });
@@ -32,7 +30,7 @@ httpClient.interceptors.response.use(
 export { httpClient };
 
 export default {
-  install(Vue, options) {
+  install(Vue) {
     Vue.prototype.$httpClient = httpClient;
   }
 };

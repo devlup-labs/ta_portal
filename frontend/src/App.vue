@@ -1,9 +1,10 @@
 <template lang="pug">
-    v-app
+    v-app(style="background-color: white")
         Header(v-if="showHeader" @toggleDrawer="drawer = !drawer")
         Sidenav(v-if="showHeader" :drawer="drawer")
         v-content
-            router-view
+            v-container(fluid)
+                router-view
 </template>
 
 <script>

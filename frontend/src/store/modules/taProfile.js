@@ -20,9 +20,9 @@ const state = {
   errors: []
 };
 const getters = {
-  taProfile: (state, getters) => state.taProfile,
-  user: (state, getters) => state.user,
-  errors: (state, getters) => state.errors
+  taProfile: state => state.taProfile,
+  user: state => state.user,
+  errors: state => state.errors
 };
 
 const mutations = {
@@ -65,7 +65,7 @@ const mutations = {
 };
 
 const actions = {
-  fetchTaProfile({ commit, state }) {
+  fetchTaProfile({ commit }) {
     httpClient
       .get("/api/ta-profiles/current/")
       .then(response => {
