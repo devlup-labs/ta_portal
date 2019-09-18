@@ -7,6 +7,5 @@ router.register(r'courses', CourseViewSet)
 router.register(r'feedbacks', FeedbackViewSet)
 router.register(r'assignments', AssignmentViewSet)
 
-urlpatterns = [
-    path("core/", include(router.urls))
-]
+urlpatterns = []
+urlpatterns += router.urls
