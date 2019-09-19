@@ -24,7 +24,8 @@ wheels/
 .installed.cfg
 *.egg
 *.sqlite3
-migrations/
+**/migrations/*
+!**/migrations/__init__.py
 staticfiles/
 media/
 .idea/
@@ -107,11 +108,10 @@ ENV/
 
 
 # Database
-muglodb
+tadb
 db.sqlite3
 
 # VueJS files
-.DS_Store
 node_modules/
 /dist/
 npm-debug.log*
@@ -129,17 +129,10 @@ ui/src/config/index.js
 *.njsproj
 *.sln
 
-.DS_Store
-node_modules/
-dist/
 npm-debug.log
 yarn-error.log
 
 # Editor directories and files
-.idea
-*.suo
-*.ntvs*
-*.njsproj
 *.sln.DS_Store
 node_modules
 /dist
@@ -151,16 +144,6 @@ node_modules
 .env.local
 .env.*.local
 
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
 # Editor directories and files
-.idea
 .vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
 *.sw?
