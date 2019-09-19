@@ -6,7 +6,7 @@
                     v-col(cols="6")
                         v-subheader(v-if="item.heading") {{ item.heading }}
                 v-divider(v-else-if="item.divider" :key="i" dark class="my-4")
-                v-list-item(v-else :key="i" @click="")
+                v-list-item(v-else :key="i" @click="" :to="item.path")
                     v-list-item-action
                         v-icon {{ item.icon }}
                     v-list-item-content
@@ -21,8 +21,8 @@ export default {
     return {
       items: [
         { heading: "TA Assignments" },
-        { icon: "mdi-notebook", text: "Current" },
-        { icon: "mdi-reload", text: "Past" },
+        { icon: "mdi-notebook", text: "Current", path:"/current" },
+        { icon: "mdi-reload", text: "Past", path:"/past" },
         { divider: true },
         { heading: "Academics" },
         { icon: "mdi-calendar", text: "Calendar" },

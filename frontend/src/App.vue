@@ -19,7 +19,7 @@ export default {
   }),
   computed: {
     showHeader() {
-      return this.$router.currentRoute.name === "profile";
+      return this.$router.currentRoute.name === "profile" || this.$router.currentRoute.name === "current" ||this.$router.currentRoute.name === "past";
     }
   }
 };
