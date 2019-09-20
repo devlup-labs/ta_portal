@@ -3,7 +3,7 @@
         Header(v-if="showHeader" @toggleDrawer="drawer = !drawer")
         Sidenav(v-if="showHeader" :drawer="drawer")
         v-content
-            v-container(fluid)
+            v-container(fluid fill-height)
                 router-view
 </template>
 

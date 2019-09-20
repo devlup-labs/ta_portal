@@ -1,46 +1,59 @@
 <template lang="pug">
-  div
-    v-card
-        v-card-title Sign in to TA Portal
-        v-card-text(pt-4)
-         div
+  v-card
+    v-row
+      v-col.hidden-sm-and-down(md="5" offset-md="1" align-self="center")
+        h2.display-1 TA Management
+        p.heading.mb-0 Department of Electrical Engineering
+        | IIT Jodhpur
+      v-col.py-12(xs="12" md="6")
+        v-toolbar(flat)
+          v-toolbar-title
+            span.primary--text Sign in to TA Portal
+        v-card-text
           v-form(v-model="valid" ref="form")
-            h3 USERNAME
-              v-text-field(
-                outlined
-                v-model="email"
-                :rules="emailRules"
-                required
-              )
-            h3 PASSWORD
-              v-text-field(
+            v-text-field(
+              label="Email"
+              name="email"
               outlined
-              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append="() => (showPassword = !showPassword)"
-              :rules="passwordRules"
-              :type="showPassword ? 'password' : 'text'"
-              min="8"
+              v-model="email"
+              prepend-icon="mdi-email"
+              :rules="emailRules"
               required
-              v-model="password"
             )
-            v-layout(justify-center)
-              v-btn(rounded color="#009999" dark extra large) Log in
+          v-text-field(
+            label="Password"
+            name="password"
+            outlined
+            prepend-icon="mdi-lock"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="() => (showPassword = !showPassword)"
+            :rules="passwordRules"
+            :type="showPassword ? 'text' : 'password'"
+            min="8"
+            required
+            v-model="password"
+          )
+          v-row
+            v-col.ml-auto.py-0(cols="auto")
+              span.info--text Forgot Password?
+          v-row(justify="center")
+            v-btn(rounded color="primary" dark extra large) Log in
 
-            v-layout(justify-center)
-              h4 OR
+          v-row.py-3(justify="center")
+            h4 OR
 
-            v-layout(justify-center)
-              a
-                img(
-                  :src="googleSignInBtn"
-                  class="gsign-responsive"
-                  alt="sign in google"
-                )
-
+          v-row(justify="center")
+            a
+              img(
+                :src="googleSignInBtn"
+                class="gsign-responsive"
+                alt="sign in google"
+              )
 </template>
 
 <script>
 import googleSignInBtn from "../assets/btn_google_light_normal.svg";
+
 export default {
   name: "LoginCard",
   data() {
@@ -48,9 +61,15 @@ export default {
       valid: false,
       showPassword: false,
       password: "",
-      passwordRules: [v => !!v || "Password is required"],
+      passwordRules: [
+        v => !!v || "Password is required",
+        v => v.length > 7 || "Password must be greater than 8 characters"
+      ],
       email: "",
-      emailRules: [v => !!v || "E-mail is required"],
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      ],
       googleSignInBtn
     };
   }
@@ -62,7 +81,4 @@ export default {
   width: 100%;
   height: auto;
 }
-    .v-card-title {
-
-    }
 </style>

@@ -1,9 +1,7 @@
 <template lang="pug">
-    v-container(fluid fill-height)
-        v-layout(flex align-center offset-md5 fill-height justify-center)
-            v-flex( xs10 sm8 lg6)
-                LoginCard
-
+    v-row(align="center" justify="center")
+        v-col(cols="12" xs="12" sm="8" md="10" lg="8")
+            LoginCard
 </template>
 
 <script>
