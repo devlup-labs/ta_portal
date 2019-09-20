@@ -12,7 +12,7 @@ export default new Vuetify({
       light: {
         primary: "#398E8F",
         secondary: "#424242",
-        accent: "#82B1FF",
+        accent: "#F2F9F9",
         error: "#FF5252",
         info: "#2196F3",
         success: "#4CAF50",
