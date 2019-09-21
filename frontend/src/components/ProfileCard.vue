@@ -69,7 +69,8 @@ export default {
           /\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})? ?(\w{1,10}\s?\d{1,6})?|([6-9][0-9]{9})/.test(
             value
           ) || "Invalid phone number."
-      }
+      },
+      saveTaProfile: false,
     };
   },
   computed: {
