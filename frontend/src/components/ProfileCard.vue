@@ -52,7 +52,6 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-
 export default {
   name: "Profile",
   data() {
@@ -89,7 +88,6 @@ export default {
       "setMtechSpecialization"
     ])
   },
-
   mounted() {
     this.fetchTaProfile();
   }

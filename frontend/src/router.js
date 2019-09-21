@@ -14,7 +14,8 @@ export default new Router({
     {
       path: "/login",
       name: "login",
-      component: Login
+      component: Login,
+      meta: { hide: ["sidenav"] }
     },
     {
       path: "/profile",
