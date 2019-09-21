@@ -1,7 +1,7 @@
 <template lang="pug">
     v-app(style="background-color: white")
-        Header(v-if="showHeader" @toggleDrawer="drawer = !drawer")
-        Sidenav(v-if="showHeader" :drawer="drawer")
+        Header(v-if="showAppBar" :navIcon="showSidenav" @toggleDrawer="drawer = !drawer")
+        Sidenav(v-if="showSidenav" :drawer="drawer")
         v-content
             v-container(fluid fill-height)
                 router-view
@@ -14,11 +14,22 @@ export default {
   name: "App",
   components: { Header, Sidenav },
   data: () => ({
-    drawer: true
+    drawer: true,
+    showAppBar: true,
+    showSidenav: true
   }),
-  computed: {
-    showHeader() {
-      return this.$router.currentRoute.name === "profile";
+  methods: {
+    isPropHidden(propName) {
+      const routeMeta = this.$router.currentRoute.meta;
+      return (
+        routeMeta.hasOwnProperty("hide") && routeMeta.hide.includes(propName)
+      );
+    }
+  },
+  watch: {
+    $route() {
+      this.showAppBar = !this.isPropHidden("app-bar");
+      this.showSidenav = !this.isPropHidden("sidenav");
     }
   }
 };
