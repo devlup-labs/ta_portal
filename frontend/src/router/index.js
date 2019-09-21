@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Login from "../views/Login";
 import Profile from "../views/Profile";
+import TaAssignment from "../views/TaAssignment";
 import AuthGuard from "./auth-middleware";
 import Logout from "../views/Logout";
 Vue.use(Router);
@@ -36,6 +37,11 @@ const router = new Router({
       // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "about" */ "../views/About.vue")
+    },
+    {
+      path: "/Ta",
+      name: "Ta",
+      component : TaAssignment
     }
   ]
 });
