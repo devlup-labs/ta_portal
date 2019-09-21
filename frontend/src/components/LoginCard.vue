@@ -23,24 +23,24 @@
                     :rules="emailRules"
                     required
                   )
-                v-text-field(
-                  label="Password"
-                  name="password"
-                  outlined
-                  prepend-icon="mdi-lock"
-                  :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                  @click:append="() => (showPassword = !showPassword)"
-                  :rules="passwordRules"
-                  :type="showPassword ? 'text' : 'password'"
-                  min="8"
-                  required
-                  v-model="password"
-                )
-                v-row
-                  v-col.ml-auto.pt-0(cols="auto")
-                    v-btn(color="info" text rounded @click="forgetPasswordStep = 2") Forgot Password?
-                v-row(justify="center")
-                  v-btn(color="primary" large rounded) Log in
+                  v-text-field(
+                    label="Password"
+                    name="password"
+                    outlined
+                    prepend-icon="mdi-lock"
+                    v-model="password"
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="() => (showPassword = !showPassword)"
+                    :rules="passwordRules"
+                    :type="showPassword ? 'text' : 'password'"
+                    min="8"
+                    required
+                  )
+                  v-row
+                    v-col.ml-auto.pt-0(cols="auto")
+                      v-btn(color="info" text rounded @click="forgetPasswordStep = 2") Forgot Password?
+                  v-row(justify="center")
+                    v-btn(color="primary" :disabled="!valid" @click="login" large rounded) Login
 
                 v-row.py-3(justify="center")
                   h4 OR
@@ -111,6 +111,15 @@ export default {
     };
   },
   methods: {
+    login() {
+      this.$store.dispatch("auth/login", {
+        email: this.email,
+        password: this.password
+      }).then(() => {
+        if (this.$route.query.next) this.$router.push(this.$route.query.next);
+        else this.$router.push({ name: "profile" });
+      });
+    },
     resetPassword() {
       this.resettingPassword = true;
       setTimeout(() => {

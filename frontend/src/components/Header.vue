@@ -5,7 +5,7 @@
             span.title.ml-3.mr-5 TA Portal&nbsp;
             span.font-weight-light Department of Electrical Engineering, IIT Jodhpur
         v-spacer
-        v-menu(v-if="isLoggedIn" bottom left)
+        v-menu(v-if="isAuthenticated" bottom left)
             template(v-slot:activator="{ on }")
                 v-btn(dark icon v-on="on")
                     v-avatar(size="38px")
@@ -14,7 +14,8 @@
                 v-list-item(
                     v-for="(item, i) in menu"
                     :key="i"
-                    @click="")
+                    @click=""
+                    :to="item.to")
                     v-list-item-title {{ item.title }}
         v-btn.white--text(v-else outlined :to="{name: 'login'}") Login
 </template>
@@ -27,11 +28,14 @@ export default {
     navIcon: Boolean
   },
   computed: {
-    ...mapGetters("auth", ["isLoggedIn"])
+    ...mapGetters("auth", ["isAuthenticated"])
   },
   data() {
     return {
-      menu: [{ title: "View Profile" }, { title: "Logout" }]
+      menu: [
+        { title: "View Profile", to: { name: "profile" } },
+        { title: "Logout", to: { name: "logout" } }
+      ]
     };
   }
 };

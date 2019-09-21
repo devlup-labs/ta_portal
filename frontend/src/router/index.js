@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Login from "../views/Login";
 import Profile from "../views/Profile";
 import AuthGuard from "./auth-middleware";
+import Logout from "../views/Logout";
 Vue.use(Router);
 
 const router = new Router({
@@ -14,6 +15,12 @@ const router = new Router({
       name: "login",
       component: Login,
       meta: { hide: ["sidenav"] }
+    },
+    {
+      path: "/logout",
+      name: "logout",
+      component: Logout,
+      meta: { hide: ["sidenav", "app-bar"] }
     },
     {
       path: "/profile",

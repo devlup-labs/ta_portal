@@ -1,22 +1,35 @@
-import router from "../../router";
-import axios from "axios";
+import api from "../../api";
 
 const state = {
-  isLoggedIn: false,
+  isAuthenticated: false,
+  authenticating: false,
+  error: null,
   thumbnailUrl: null
 };
 
 const getters = {
-  isLoggedIn: state => state.isLoggedIn,
+  isAuthenticated: state => state.isAuthenticated,
+  authenticating: state => state.authenticating,
+  error: state => state.error,
   thumbnailUrl: state => state.thumbnailUrl
 };
 
 const mutations = {
-  LOGIN(state) {
-    state.isLoggedIn = true;
+  LOGIN_BEGIN(state) {
+    state.authenticating = true;
+    state.error = null;
+  },
+  LOGIN_FAILURE(state, error) {
+    state.authenticating = false;
+    state.error = error;
+  },
+  LOGIN_SUCCESS(state) {
+    state.authenticating = false;
+    state.error = null;
+    state.isAuthenticated = true;
   },
   LOGOUT(state) {
-    state.isLoggedIn = false;
+    state.isAuthenticated = false;
   },
   SET_THUMBNAIL_URL(state, URL) {
     state.thumbnailUrl = URL;
@@ -24,17 +37,22 @@ const mutations = {
 };
 
 const actions = {
-  login({ commit }) {
-    commit("LOGIN");
+  login({ commit }, { email, password }) {
+    commit("LOGIN_BEGIN");
+    return api
+      .login(email, password)
+      .then(() => commit("LOGIN_SUCCESS"))
+      .catch(err => commit("LOGIN_FAILURE", err.response.data.message));
   },
   logout({ commit }) {
-    axios
-      .get("/logout/")
+    return api
+      .logout()
       .then(() => {
         commit("LOGOUT");
-        router.push({ name: "login" });
-      })
-      .catch(err => console.log(err));
+      });
+  },
+  checkAuthentication({ commit }) {
+    return api.authCheck().then(() => commit("LOGIN_SUCCESS"));
   }
 };
 

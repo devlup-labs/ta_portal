@@ -12,15 +12,10 @@ export default {
     LoginCard
   },
   mounted() {
-    this.$httpClient
-      .get("/api/auth-check/")
-      .then(response => {
-        this.$store.dispatch("auth/login").then(() => {
-          if (this.$route.query.next) this.$router.push(this.$route.query.next);
-          else this.$router.push({ name: "profile" });
-        });
-      })
-      .catch(() => {});
+    this.$store.dispatch("auth/checkAuthentication").then(() => {
+      if (this.$route.query.next) this.$router.push(this.$route.query.next);
+      else this.$router.push({ name: "profile" });
+    });
   }
 };
 </script>
