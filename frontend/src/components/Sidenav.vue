@@ -1,5 +1,5 @@
 <template lang="pug">
-    v-navigation-drawer(v-model="drawer" app clipped color="grey lighten-4")
+    v-navigation-drawer(:value="drawer" app clipped color="grey lighten-4")
         v-list(dense class="grey lighten-4")
             template(v-for="(item, i) in items")
                 v-row(v-if="item.heading" :key="i" align="center")
@@ -16,7 +16,9 @@
 <script>
 export default {
   name: "Sidenav",
-  props: ["drawer"],
+  props: {
+    drawer: Boolean
+  },
   data() {
     return {
       items: [

@@ -1,11 +1,11 @@
 <template lang="pug">
     v-app-bar(app clipped-left color="primary")
-        v-app-bar-nav-icon.white--text(@click="$emit('toggleDrawer')")
+        v-app-bar-nav-icon.white--text(v-if="navIcon" @click="$emit('toggleDrawer')")
         v-toolbar-title.white--text
             span.title.ml-3.mr-5 TA Portal&nbsp;
             span.font-weight-light Department of Electrical Engineering, IIT Jodhpur
         v-spacer
-        v-menu(v-if="profile" bottom left)
+        v-menu(v-if="isLoggedIn" bottom left)
             template(v-slot:activator="{ on }")
                 v-btn(dark icon v-on="on")
                     v-avatar(size="38px")
@@ -20,9 +20,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "Header",
-  props: ["profile"],
+  props: {
+    navIcon: Boolean
+  },
+  computed: {
+    ...mapGetters("auth", ["isLoggedIn"])
+  },
   data() {
     return {
       menu: [{ title: "View Profile" }, { title: "Logout" }]
