@@ -5,7 +5,7 @@
                 v-card-title
                      v-row
                         h4 EE213,Signals and Systems
-                        v-col(class="rightside")
+                        v-col(class="text-right")
                             v-chip(  class="ma-2 " color="#e3cceb" align="right" )  Submitted on 20th September,2019
                 h3 Completed TA Duties
 
@@ -34,7 +34,7 @@
                                     value="Tutorial and attendance of EE batch(Tuesday and Thursday)"
                                 )
                     div(align="right")
-                        v-btn(class="ma-2 fbtn" rounded outlined color="blue" right) Close
+                        v-btn(class="ma-2" width=200 rounded outlined color="blue" right) Close
 </template>
 
 <script>
@@ -54,10 +54,6 @@ export default {
         border:lightgrey 0.5px solid;
         margin-top: 2%;
     }
-    .fbtn{
-        width: 200px;
-    }
-    .rightside{
-        text-align: right;
-    }
+
+
 </style>
