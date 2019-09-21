@@ -5,6 +5,8 @@ import Profile from "../views/Profile";
 import TaAssignment from "../views/TaAssignment";
 import AuthGuard from "./auth-middleware";
 import Logout from "../views/Logout";
+import CurrentAssignment from "../components/CurrentAssignment";
+import PastAssignment from "../components/PastAssignment";
 Vue.use(Router);
 
 const router = new Router({
@@ -42,7 +44,18 @@ const router = new Router({
       path: "/Ta",
       name: "Ta",
       component : TaAssignment
-    }
+    },
+    {
+      path: "/current",
+      name: "current",
+      component : CurrentAssignment,
+    },
+    {
+      path: "/past",
+      name: "past",
+      component : PastAssignment,
+    },
+
   ]
 });
 
