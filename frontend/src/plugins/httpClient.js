@@ -12,13 +12,13 @@ httpClient.interceptors.response.use(
   error => {
     if (
       error.response.status === 401 &&
-      router.currentRoute.name !== "Login" &&
+      router.currentRoute.name !== "login" &&
       router.currentRoute.meta.requiresAuth
     ) {
       store
         .dispatch("auth/logout")
         .then(() => {
-          router.push({ name: "Login" });
+          router.push({ name: "login" });
         })
         .catch(() => {});
     } else {

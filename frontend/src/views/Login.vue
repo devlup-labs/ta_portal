@@ -10,6 +10,17 @@ export default {
   name: "Login",
   components: {
     LoginCard
+  },
+  mounted() {
+    this.$httpClient
+      .get("/api/auth-check/")
+      .then(response => {
+        this.$store.dispatch("auth/login").then(() => {
+          if (this.$route.query.next) this.$router.push(this.$route.query.next);
+          else this.$router.push({ name: "profile" });
+        });
+      })
+      .catch(() => {});
   }
 };
 </script>

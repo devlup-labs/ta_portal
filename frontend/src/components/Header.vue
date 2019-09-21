@@ -5,7 +5,7 @@
             span.title.ml-3.mr-5 TA Portal&nbsp;
             span.font-weight-light Department of Electrical Engineering, IIT Jodhpur
         v-spacer
-        v-menu(v-if="profile" bottom left)
+        v-menu(v-if="isLoggedIn" bottom left)
             template(v-slot:activator="{ on }")
                 v-btn(dark icon v-on="on")
                     v-avatar(size="38px")
@@ -20,11 +20,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "Header",
   props: {
-    profile: Object,
     navIcon: Boolean
+  },
+  computed: {
+    ...mapGetters("auth", ["isLoggedIn"])
   },
   data() {
     return {

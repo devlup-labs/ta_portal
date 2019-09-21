@@ -24,13 +24,19 @@ export default {
       return (
         routeMeta.hasOwnProperty("hide") && routeMeta.hide.includes(propName)
       );
+    },
+    updateVisibility() {
+      this.showAppBar = !this.isPropHidden("app-bar");
+      this.showSidenav = !this.isPropHidden("sidenav");
     }
   },
   watch: {
     $route() {
-      this.showAppBar = !this.isPropHidden("app-bar");
-      this.showSidenav = !this.isPropHidden("sidenav");
+      this.updateVisibility();
     }
+  },
+  created() {
+    this.updateVisibility();
   }
 };
 </script>
