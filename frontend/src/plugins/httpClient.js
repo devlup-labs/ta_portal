@@ -1,5 +1,4 @@
 import axios from "axios";
-import store from "../store";
 import router from "../router";
 
 const httpClient = axios.create({
@@ -12,15 +11,11 @@ httpClient.interceptors.response.use(
   error => {
     if (
       error.response.status === 401 &&
-      router.currentRoute.name !== "Login" &&
+      router.currentRoute.name !== "login" &&
       router.currentRoute.meta.requiresAuth
     ) {
-      store
-        .dispatch("auth/logout")
-        .then(() => {
-          router.push({ name: "Login" });
-        })
-        .catch(() => {});
+      store.dispatch("auth/logout");
+      router.push({ name: "login" });
     } else {
       return Promise.reject(error);
     }
