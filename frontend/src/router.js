@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Login from "./views/Login";
 import Profile from "./views/Profile";
+import FeedbackTextBox from "./components/FeedbackTextBox";
 Vue.use(Router);
 
 export default new Router({
@@ -17,6 +18,11 @@ export default new Router({
       path: "/profile",
       name: "profile",
       component: Profile
+    },
+    {
+      path:"/FeedbackTextBox",
+      name:"FeedbacFeedbackTextBox",
+      component:FeedbackTextBox
     },
     {
       path: "/about",
