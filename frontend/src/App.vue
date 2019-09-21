@@ -19,7 +19,7 @@ export default {
   }),
   computed: {
     showHeader() {
-      return this.$router.currentRoute.name !== "login" ;
+      return this.$router.currentRoute.name === "login" ;
     }
   }
 };
