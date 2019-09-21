@@ -44,8 +44,15 @@
                     v-col(cols="12")
                         v-text-field(outlined :value="taProfile.research_area" @input="setResearchArea"
                             name="research_area" :rules= "[rules.required]" label="Area of Research")
-        v-card-actions
-            v-btn(color="success" @click="saveTaProfile") Save
+        v-row(justify="center")
+            v-dialog(v-model="saveTaProfile",persistent="",max-width="300")
+                template(v-slot:activator="{ on }")
+                    v-btn(color="success" ,dark="", v-on="on") Save
+                v-card
+                    v-card-title(justify="center") TA profile Saved
+
+                    v-card-actions
+                         v-btn(color="success" @click="saveTaProfile = false" justify ="center") OK
 </template>
 
 <style scoped></style>
