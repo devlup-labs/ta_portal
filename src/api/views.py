@@ -1,3 +1,4 @@
+from django.middleware import csrf
 from django.contrib.auth import login, logout
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
@@ -54,3 +55,15 @@ class LogoutAPIView(APIView):
     def post(self, request, *args, **kwargs):
         """Logout may be done via POST."""
         return self.get(request, *args, **kwargs)
+
+
+class CsrfTokenAPIView(APIView):
+    permission_classes = (AllowAny,)
+
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        token = csrf.get_token(request)
+        return Response({"csrftoken": token}, status=status.HTTP_200_OK)

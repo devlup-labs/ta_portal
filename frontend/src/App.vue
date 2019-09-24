@@ -10,6 +10,8 @@
 <script>
 import Header from "./components/Header";
 import Sidenav from "./components/Sidenav";
+import axios from "axios";
+
 export default {
   name: "App",
   components: { Header, Sidenav },
@@ -37,6 +39,10 @@ export default {
   },
   created() {
     this.updateVisibility();
+    axios.get("/api/token/").then(response => {
+      const token = response.data.csrftoken;
+      document.cookie = `csrftoken = ${token}`;
+    });
   }
 };
 </script>

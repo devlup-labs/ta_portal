@@ -1,5 +1,6 @@
 import axios from "axios";
 import router from "../router";
+import store from "../store";
 
 const httpClient = axios.create({
   xsrfCookieName: "csrftoken",
