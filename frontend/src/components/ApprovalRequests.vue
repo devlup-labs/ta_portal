@@ -1,41 +1,19 @@
-<template>
-    <div>
-  <v-app id="inspire">
-    <v-container id="dropdown-example">
-      <v-row>
-        <v-col cols="12" sm="3">
-          <v-overflow-btn
-            class="my-2"
-            :items="dropdown_item"
-            label="Course Name"
-            target="#dropdown-example"
-          ></v-overflow-btn>
-        </v-col>
-      </v-row>
-    </v-container>
-  <v-data-table
-    v-model="selected"
-    :headers="headers"
-    :items="ta"
-    :single-select="singleSelect"
-    item-key="name"
-    show-select
-    class="elevation-1"
-  >
-    </v-data-table>
-  <div>By clicking Approve,you are certifying that the above student(s) have succesfully performed the ta duty equivaent to * hours per week.</div>
-  <div class="text-center">
- <v-row>
-   <v-col cols="12" sm="2">
-   <v-btn>Approve</v-btn>
-   </v-col>
-   <v-col cols="12" sm="2">
-   <v-btn>Not Approved</v-btn>
-   </v-col>
-   </v-row>
-  </div>
-  </v-app>
-</div>
+<template lang="pug">
+  div
+  v-container#dropdown-example
+    v-row
+      v-col(cols='12' sm='3')
+        v-overflow-btn.my-2(:items='dropdown_item' label='Course Name' target='#dropdown-example')
+  v-data-table.elevation-1(v-model='selected' :headers='headers' :items='ta' :single-select='singleSelect' item-key='name' show-select='')
+  div
+    | By clicking Approve,you are certifying that the above student(s) have succesfully performed the ta duty equivaent to * hours per week.
+  .text-center
+    v-row
+      v-col(cols='12' sm='2')
+        v-btn Approve
+      v-col(cols='12' sm='2')
+        v-btn Not Approved
+
 </template>
 
 <script>
