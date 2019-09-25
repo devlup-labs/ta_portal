@@ -5,7 +5,7 @@ from api.views import AuthenticationCheckAPIView, LoginAPIView, LogoutAPIView, C
 app_name = 'api'
 
 urlpatterns = [
-    path('token/', CsrfTokenAPIView.as_view(), name='token'),
+    path('csrf-token/', CsrfTokenAPIView.as_view(), name='token'),
     path('login/', LoginAPIView.as_view(), name='login'),
     path('logout/', LogoutAPIView.as_view(), name='logout'),
     path('accounts/', include('accounts.api.urls')),

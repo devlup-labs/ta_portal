@@ -10,7 +10,7 @@
 <script>
 import Header from "./components/Header";
 import Sidenav from "./components/Sidenav";
-import axios from "axios";
+import { httpClient } from "./plugins/httpClient";
 
 export default {
   name: "App",
@@ -39,7 +39,7 @@ export default {
   },
   created() {
     this.updateVisibility();
-    axios.get("api/csrf-token/").then(response => {
+    httpClient.get("api/csrf-token/").then(response => {
       const token = response.data.csrftoken;
       document.cookie = `csrftoken = ${token}`;
     });
