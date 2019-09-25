@@ -67,11 +67,11 @@ const mutations = {
 const actions = {
   fetchTaProfile({ commit }) {
     httpClient
-      .get("/api/ta-profiles/current/")
+      .get("/api/accounts/ta-profiles/current/")
       .then(response => {
         commit("SET_TA_PROFILE", response.data);
         httpClient
-          .get(`/api/users/${response.data.user}/`)
+          .get(`/api/accounts/users/${response.data.user}/`)
           .then(response => {
             commit("SET_USER", response.data);
           })
@@ -81,14 +81,14 @@ const actions = {
   },
   saveTaProfile({ commit, state }) {
     httpClient
-      .patch(`/api/users/${state.taProfile.user}/`, {
+      .patch(`/api/accounts/users/${state.taProfile.user}/`, {
         first_name: state.user.first_name,
         last_name: state.user.last_name
       })
       .then(response => {
         commit("SET_USER", response.data);
         httpClient
-          .patch(`/api/ta-profiles/${state.taProfile.id}/`, {
+          .patch(`/api/accounts/ta-profiles/${state.taProfile.id}/`, {
             phone: state.taProfile.phone,
             alternate_phone: state.taProfile.alternate_phone,
             research_area: state.taProfile.research_area,

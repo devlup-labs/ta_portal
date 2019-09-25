@@ -11,7 +11,7 @@ class Course(models.Model):
     supervisor = models.ForeignKey(TeachingAssistantSupervisorProfile, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.course_code
+        return self.code
 
 
 class Assignment(models.Model):
