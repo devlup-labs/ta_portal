@@ -39,7 +39,7 @@ export default {
   },
   created() {
     this.updateVisibility();
-    axios.get("/api/token/").then(response => {
+    axios.get("api/csrf-token/").then(response => {
       const token = response.data.csrftoken;
       document.cookie = `csrftoken = ${token}`;
     });
