@@ -7,6 +7,7 @@ import AuthGuard from "./auth-middleware";
 import Logout from "../views/Logout";
 import CurrentAssignment from "../components/CurrentAssignment";
 import PastAssignment from "../components/PastAssignment";
+import ApprovalRequests from "../components/ApprovalRequests";
 Vue.use(Router);
 
 const router = new Router({
@@ -54,6 +55,11 @@ const router = new Router({
       path: "/past",
       name: "past",
       component : PastAssignment,
+    },
+    {
+      path: "/approvalrequests",
+      name: "approvalrequests",
+      component : ApprovalRequests,
     },
 
   ]
