@@ -1,7 +1,7 @@
 <template lang="pug">
 
-        v-card(class="rounded-card")
-            div(class="movement")
+        v-card(class="rounded-card ")
+            v-container(class="pa-2")
                 v-card-title
                      v-row
                         h4 EE213,Signals and Systems
@@ -13,7 +13,7 @@
                         v-card-text
                             v-row
                                 v-textarea(
-                                        class="tarea1"
+
                                         name="input-7-1"
                                         filled
                                         background-color="white"
@@ -21,10 +21,11 @@
                                         auto-grow
                                         rounded
                                         value="Tutorial and attendance of EE batch(Tuesday and Thursday)"
+                                        outlined
                                 )
                             v-row
                                 v-textarea(
-                                    class="tarea2"
+
                                     name="input-7-1"
                                     filled
                                     background-color="white"
@@ -32,6 +33,7 @@
                                     auto-grow
                                     rounded
                                     value="Tutorial and attendance of EE batch(Tuesday and Thursday)"
+                                    outlined
                                 )
                     div(align="right")
                         v-btn(class="ma-2" width=200 rounded outlined color="blue" right) Close
@@ -44,16 +46,7 @@ export default {
 </script>
 
 <style scoped>
-    .movement{
-        padding:2%;
-    }
-    .tarea1{
-        border:lightgrey 0.5px solid;
-    }
-    .tarea2{
-        border:lightgrey 0.5px solid;
-        margin-top: 2%;
-    }
+
 
 
 </style>
