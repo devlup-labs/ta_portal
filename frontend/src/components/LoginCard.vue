@@ -1,7 +1,8 @@
 <template lang="pug">
-  v-card
+  v-card.elevation-10
     v-row
-      v-col.hidden-sm-and-down(md="5" offset-md="1" align-self="center")
+      v-col.hidden-sm-and-down(md="5" offset-md="1" align-self="center" )
+        v-img(src="../assets/iitjlogo.jpg" aspect-ratio=1 height="100" contain=true position="left-top" )
         h2.display-1 TA Management
         p.heading.mb-0 Department of Electrical Engineering
         | IIT Jodhpur
@@ -37,7 +38,7 @@
                     required
                   )
                   v-row
-                    v-col.ml-auto.pt-0(cols="auto")
+                    v-col.ml-auto.pt-0(cols="9")
                       v-btn(color="info" text rounded @click="forgetPasswordStep = 2") Forgot Password?
                   v-row(justify="center")
                     v-btn(color="primary" :disabled="!valid" @click="login" large rounded) Login
@@ -112,13 +113,15 @@ export default {
   },
   methods: {
     login() {
-      this.$store.dispatch("auth/login", {
-        email: this.email,
-        password: this.password
-      }).then(() => {
-        if (this.$route.query.next) this.$router.push(this.$route.query.next);
-        else this.$router.push({ name: "profile" });
-      });
+      this.$store
+        .dispatch("auth/login", {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          if (this.$route.query.next) this.$router.push(this.$route.query.next);
+          else this.$router.push({ name: "profile" });
+        });
     },
     resetPassword() {
       this.resettingPassword = true;
