@@ -1,9 +1,8 @@
 <template lang="pug">
     h3.pa-10 VIEW/UPDATE PROFILE
-     v-container.elevation-5.pa-lg-8
+     v-container.elevation-3
         v-card(flat)
             v-card-title(justify="center")
-
             v-card-text
                 v-container
                    v-row
