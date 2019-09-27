@@ -2,7 +2,7 @@
   v-card.elevation-10
     v-row
       v-col.hidden-sm-and-down(md="5" offset-md="1" align-self="center" )
-        v-img(src="../assets/iitjlogo.jpg" aspect-ratio=1 height="100" contain=true position="left-top" )
+        v-img(src="../assets/iitjlogo.jpg"  height="100" contain position="left-top" )
         h2.display-1 TA Management
         p.heading.mb-0 Department of Electrical Engineering
         | IIT Jodhpur
@@ -38,7 +38,7 @@
                     required
                   )
                   v-row
-                    v-col.ml-auto.pt-0(cols="9")
+                    v-col.ml-auto.pt-0(cols="auto")
                       v-btn(color="info" text rounded @click="forgetPasswordStep = 2") Forgot Password?
                   v-row(justify="center")
                     v-btn(color="primary" :disabled="!valid" @click="login" large rounded) Login
