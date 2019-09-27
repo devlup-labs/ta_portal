@@ -38,7 +38,7 @@
                     required
                   )
                   v-row
-                    v-col.ml-auto.pt-0(cols="auto")
+                    v-col.ml-auto.pt-0(cols="9")
                       v-btn(color="info" text rounded @click="forgetPasswordStep = 2") Forgot Password?
                   v-row(justify="center")
                     v-btn(color="primary" :disabled="!valid" @click="login" large rounded) Login

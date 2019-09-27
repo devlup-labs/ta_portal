@@ -1,5 +1,5 @@
 <template lang="pug">
-    h3 &nbsp VIEW/UPDATE PROFILE
+    h3.pa-10 VIEW/UPDATE PROFILE
      v-container.elevation-5.pa-lg-8
         v-card(flat)
             v-card-title(justify="center")
