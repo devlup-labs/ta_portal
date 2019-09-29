@@ -9,7 +9,7 @@
             template(v-slot:activator="{ on }")
                 v-btn(dark icon v-on="on")
                     v-avatar(size="38px")
-                        img(src="https://cdn.vuetifyjs.com/images/logos/logo.svg")
+                        img(src="../assets/account_box-24px.svg")
             v-list
                 v-list-item(
                     v-for="(item, i) in menu"

@@ -44,22 +44,22 @@ const router = new Router({
     {
       path: "/Ta",
       name: "Ta",
-      component : TaAssignment
+      component: TaAssignment
     },
     {
       path: "/current",
       name: "current",
-      component : CurrentAssignment,
+      component: CurrentAssignment
     },
     {
       path: "/past",
       name: "past",
-      component : PastAssignment,
+      component: PastAssignment
     },
     {
       path: "/approvalrequests",
       name: "approvalrequests",
-      component : ApprovalRequests,
+      component: ApprovalRequests,
     },
 
   ]
