@@ -2,7 +2,7 @@
   v-container
     v-row
       v-col(cols='12', sm='3')
-        v-overflow-btn.my-2(:items='dropdown_item', label='Course Name', target='#dropdown-example')
+        v-overflow-btn.my-2(:items='dropdown_item', label='Course Name', target='')
     v-data-table.elevation-1(v-model='selected', :headers='headers', :items='ta', :single-select='singleSelect', item-key='name', show-select='')
     div
       | By clicking Approve,you are certifying that the above student(s) have succesfully performed the ta duty equivaent to * hours per week.
