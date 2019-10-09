@@ -14,23 +14,17 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "Sidenav",
   props: {
     drawer: Boolean
   },
   data() {
-    return {
-      items: [
-        { heading: "TA Assignments" },
-        { icon: "mdi-notebook", text: "Current", name:"current" },
-        { icon: "mdi-reload", text: "Past", name:"past" },
-        { divider: true },
-        { heading: "Academics" },
-        { icon: "mdi-calendar", text: "Calendar" },
-        { icon: "mdi-calendar-clock", text: "Time Table" }
-      ]
-    };
+    return {};
+  },
+  computed: {
+    ...mapGetters("sidenav", ["items"])
   }
 };
 </script>
