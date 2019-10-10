@@ -8,6 +8,7 @@ import Logout from "../views/Logout";
 import CurrentAssignment from "../components/CurrentAssignment";
 import PastAssignment from "../components/PastAssignment";
 import ApprovalRequests from "../components/ApprovalRequests";
+import ApproveCurrent from "../views/ApproveCurrent";
 Vue.use(Router);
 
 const router = new Router({
@@ -31,6 +32,11 @@ const router = new Router({
       name: "profile",
       component: Profile,
       meta: { requiresAuth: true }
+    },
+    {
+      path: "/approvecurrent",
+      name: "approvecurrent",
+      component: ApproveCurrent,
     },
     {
       path: "/about",
@@ -59,9 +65,8 @@ const router = new Router({
     {
       path: "/approvalrequests",
       name: "approvalrequests",
-      component: ApprovalRequests,
-    },
-
+      component: ApprovalRequests
+    }
   ]
 });
 

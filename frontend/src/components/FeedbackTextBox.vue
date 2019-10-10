@@ -7,12 +7,10 @@
                     v-col.text-right
                         v-chip.ma-2(color="#e3cceb" align="right" )  Submitted on 20th September,2019
             h3 Completed TA Duties
-
                 div(class="text-center")
                     v-card-text
                         v-row
                             v-textarea(
-
                                     name="input-7-1"
                                     filled
                                     background-color="white"
@@ -20,11 +18,9 @@
                                     auto-grow
                                     rounded
                                     value="Tutorial and attendance of EE batch(Tuesday and Thursday)"
-                                    outlined
-                            )
+                                    outlined)
                         v-row
                             v-textarea(
-
                                 name="input-7-1"
                                 filled
                                 background-color="white"
@@ -32,8 +28,7 @@
                                 auto-grow
                                 rounded
                                 value="Tutorial and attendance of EE batch(Tuesday and Thursday)"
-                                outlined
-                            )
+                                outlined)
                 div(align="right")
                     v-btn.ma-2(width=200 rounded outlined color="blue" right) Close
 </template>
