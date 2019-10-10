@@ -23,8 +23,8 @@ export default {
     return {
       items: [
         { heading: "TA Assignments" },
-        { icon: "mdi-notebook", text: "Current", name:"current" },
-        { icon: "mdi-reload", text: "Past", name:"past" },
+        { icon: "mdi-notebook", text: "Current", name: "current" },
+        { icon: "mdi-reload", text: "Past", name: "past" },
         { divider: true },
         { heading: "Academics" },
         { icon: "mdi-calendar", text: "Calendar" },

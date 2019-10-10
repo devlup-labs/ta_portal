@@ -7,7 +7,6 @@
         item-key="name"
         show-select
         class="elevation-1")
-
 </template>
 
 <script>
@@ -131,54 +130,54 @@ export default {
           required: 2,
           assigned: 1
         },
-          {
-              name: "EE241 Course Name[L-T-P]",
-              supervisor: "Faculty Name",
-              required: 2,
-              assigned: 1
-          },
-          {
-              name: "EE241 Course Name[L-T-P]",
-              supervisor: "Faculty Name",
-              required: 2,
-              assigned: 1
-          },
-          {
-              name: "EE241 Course Name[L-T-P]",
-              supervisor: "Faculty Name",
-              required: 2,
-              assigned: 1
-          },
-          {
-              name: "EE241 Course Name[L-T-P]",
-              supervisor: "Faculty Name",
-              required: 2,
-              assigned: 1
-          },
-          {
-              name: "EE241 Course Name[L-T-P]",
-              supervisor: "Faculty Name",
-              required: 2,
-              assigned: 1
-          },
-          {
-              name: "EE241 Course Name[L-T-P]",
-              supervisor: "Faculty Name",
-              required: 2,
-              assigned: 1
-          },
-          {
-              name: "EE241 Course Name[L-T-P]",
-              supervisor: "Faculty Name",
-              required: 2,
-              assigned: 1
-          },
-          {
-              name: "EE241 Course Name[L-T-P]",
-              supervisor: "Faculty Name",
-              required: 2,
-              assigned: 1
-          }
+        {
+          name: "EE241 Course Name[L-T-P]",
+          supervisor: "Faculty Name",
+          required: 2,
+          assigned: 1
+        },
+        {
+          name: "EE241 Course Name[L-T-P]",
+          supervisor: "Faculty Name",
+          required: 2,
+          assigned: 1
+        },
+        {
+          name: "EE241 Course Name[L-T-P]",
+          supervisor: "Faculty Name",
+          required: 2,
+          assigned: 1
+        },
+        {
+          name: "EE241 Course Name[L-T-P]",
+          supervisor: "Faculty Name",
+          required: 2,
+          assigned: 1
+        },
+        {
+          name: "EE241 Course Name[L-T-P]",
+          supervisor: "Faculty Name",
+          required: 2,
+          assigned: 1
+        },
+        {
+          name: "EE241 Course Name[L-T-P]",
+          supervisor: "Faculty Name",
+          required: 2,
+          assigned: 1
+        },
+        {
+          name: "EE241 Course Name[L-T-P]",
+          supervisor: "Faculty Name",
+          required: 2,
+          assigned: 1
+        },
+        {
+          name: "EE241 Course Name[L-T-P]",
+          supervisor: "Faculty Name",
+          required: 2,
+          assigned: 1
+        }
       ]
     };
   }

@@ -1,5 +1,4 @@
 <template lang="pug">
-
     v-card.rounded-card
         v-container.pa-2
             v-card-title
@@ -41,12 +40,8 @@
 
 <script>
 export default {
-    name: "FeedbackTextBox",
+  name: "FeedbackTextBox"
 };
 </script>
 
-<style scoped>
-
-
-
-</style>
+<style scoped></style>
