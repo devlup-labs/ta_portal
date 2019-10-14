@@ -10,9 +10,10 @@ import {
   TaCoordinatorOnly
 } from "./auth-middleware";
 import Logout from "../views/Logout";
-import CurrentAssignment from "../components/CurrentAssignment";
-import PastAssignment from "../components/PastAssignment";
+import Current from "../views/Current";
+import Past from "../views/Past";
 import ApprovalRequests from "../components/ApprovalRequests";
+import ApproveCurrent from "../views/ApproveCurrent";
 Vue.use(Router);
 
 const router = new Router({
@@ -36,6 +37,11 @@ const router = new Router({
       name: "profile",
       component: Profile,
       meta: { requiresAuth: true }
+    },
+    {
+      path: "/approvecurrent",
+      name: "approvecurrent",
+      component: ApproveCurrent
     },
     {
       path: "/about",

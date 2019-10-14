@@ -7,7 +7,6 @@
         item-key="name"
         show-select
         class="elevation-1")
-
 </template>
 
 <script>
