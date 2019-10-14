@@ -5,8 +5,8 @@ import Profile from "../views/Profile";
 import TaAssignment from "../views/TaAssignment";
 import AuthGuard from "./auth-middleware";
 import Logout from "../views/Logout";
-import CurrentAssignment from "../components/CurrentAssignment";
-import PastAssignment from "../components/PastAssignment";
+import Current from "../views/Current";
+import Past from "../views/Past";
 import ApprovalRequests from "../components/ApprovalRequests";
 import ApproveCurrent from "../views/ApproveCurrent";
 Vue.use(Router);
@@ -36,7 +36,7 @@ const router = new Router({
     {
       path: "/approvecurrent",
       name: "approvecurrent",
-      component: ApproveCurrent,
+      component: ApproveCurrent
     },
     {
       path: "/about",
@@ -55,12 +55,12 @@ const router = new Router({
     {
       path: "/current",
       name: "current",
-      component: CurrentAssignment
+      component: Current
     },
     {
       path: "/past",
       name: "past",
-      component: PastAssignment
+      component: Past
     },
     {
       path: "/approvalrequests",
