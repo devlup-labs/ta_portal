@@ -3,7 +3,12 @@ import Router from "vue-router";
 import Login from "../views/Login";
 import Profile from "../views/Profile";
 import TaAssignment from "../views/TaAssignment";
-import AuthGuard from "./auth-middleware";
+import {
+  AuthGuard,
+  TaOnly,
+  TaSupervisorOnly,
+  TaCoordinatorOnly
+} from "./auth-middleware";
 import Logout from "../views/Logout";
 import Current from "../views/Current";
 import Past from "../views/Past";
@@ -48,28 +53,35 @@ const router = new Router({
         import(/* webpackChunkName: "about" */ "../views/About.vue")
     },
     {
-      path: "/Ta",
-      name: "Ta",
-      component: TaAssignment
+      path: "/ta-assignments",
+      name: "ta-assignments",
+      component: TaAssignment,
+      meta: { taCoordinatorOnly: true }
     },
     {
       path: "/current",
       name: "current",
-      component: Current
+      component: CurrentAssignment,
+      meta: { taOnly: true }
     },
     {
       path: "/past",
       name: "past",
-      component: Past
+      component: PastAssignment,
+      meta: { taOnly: true }
     },
     {
-      path: "/approvalrequests",
-      name: "approvalrequests",
-      component: ApprovalRequests
+      path: "/approval-requests",
+      name: "approval-requests",
+      component: ApprovalRequests,
+      meta: { taSupervisorOnly: true }
     }
   ]
 });
 
 router.beforeEach(AuthGuard);
+router.beforeEach(TaOnly);
+router.beforeEach(TaSupervisorOnly);
+router.beforeEach(TaCoordinatorOnly);
 
 export default router;
