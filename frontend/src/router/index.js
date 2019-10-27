@@ -14,6 +14,7 @@ import Current from "../views/Current";
 import Past from "../views/Past";
 import ApprovalRequests from "../components/ApprovalRequests";
 import ApproveCurrent from "../views/ApproveCurrent";
+import CurrentAssignment from "../components/CurrentAssignment";
 Vue.use(Router);
 
 const router = new Router({
@@ -67,7 +68,7 @@ const router = new Router({
     {
       path: "/past",
       name: "past",
-      component: PastAssignment,
+      component: Past,
       meta: { taOnly: true }
     },
     {

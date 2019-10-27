@@ -4,12 +4,10 @@
 
 <script>
 import CurrentAssignment from "../components/CurrentAssignment";
-import FeedbackTextBox from "../components/FeedbackTextBox";
 export default {
   name: "Current",
   components: {
-    CurrentAssignment,
-    FeedbackTextBox
+    CurrentAssignment
   }
 };
 </script>
