@@ -60,8 +60,7 @@ const router = new Router({
       name: "ta-assignments",
       component: TaAssignment,
       meta: { taCoordinatorOnly: true }
-    },
-
+    }
   ]
 });
 
