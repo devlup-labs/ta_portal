@@ -16,6 +16,10 @@ class AssignmentSerializer(serializers.ModelSerializer):
 
 
 class FeedbackSerializer(serializers.ModelSerializer):
+    course_code = serializers.CharField(source='assignment.course.code')
+    course_name = serializers.CharField(source='assignment.course.name')
+    ta_supervisor = serializers.CharField(source='assignment.course.supervisor')
+
     class Meta:
         model = Feedback
-        fields = '__all__'
+        exclude = ["assignment", ]

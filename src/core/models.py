@@ -33,13 +33,13 @@ class Feedback(models.Model):
     duties_completed = models.CharField(max_length=256)
     comment = models.CharField(max_length=256, blank=True, null=True, help_text="Enter Supervisor Comment")
     status = models.CharField(max_length=1, choices=STATUS, default='1')
-    date_submitted = models.DateTimeField(auto_now_add=True)
-    date_approved = models.DateTimeField(blank=True, null=True)
+    date_submitted = models.DateField(auto_now_add=True)
+    date_approved = models.DateField(blank=True, null=True)
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         if self.status == '2':
-            self.date_approved = datetime.now()
+            self.date_approved = datetime.now().date()
         else:
             self.date_approved = None
         super().save()
