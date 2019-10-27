@@ -12,7 +12,6 @@ import {
 import Logout from "../views/Logout";
 import Current from "../views/Current";
 import Past from "../views/Past";
-import ApprovalRequests from "../components/ApprovalRequests";
 import ApproveCurrent from "../views/ApproveCurrent";
 Vue.use(Router);
 
@@ -39,18 +38,22 @@ const router = new Router({
       meta: { requiresAuth: true }
     },
     {
-      path: "/approvecurrent",
-      name: "approvecurrent",
-      component: ApproveCurrent
+      path: "/current",
+      name: "current",
+      component: Current,
+      meta: { taOnly: true }
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "../views/About.vue")
+      path: "/past",
+      name: "past",
+      component: Past,
+      meta: { taOnly: true }
+    },
+    {
+      path: "/approve-current",
+      name: "approve-current",
+      component: ApproveCurrent,
+      meta: { taSupervisorOnly: true }
     },
     {
       path: "/ta-assignments",
@@ -58,24 +61,7 @@ const router = new Router({
       component: TaAssignment,
       meta: { taCoordinatorOnly: true }
     },
-    {
-      path: "/current",
-      name: "current",
-      component: CurrentAssignment,
-      meta: { taOnly: true }
-    },
-    {
-      path: "/past",
-      name: "past",
-      component: PastAssignment,
-      meta: { taOnly: true }
-    },
-    {
-      path: "/approval-requests",
-      name: "approval-requests",
-      component: ApprovalRequests,
-      meta: { taSupervisorOnly: true }
-    }
+
   ]
 });
 

@@ -11,13 +11,13 @@ const state = {
     {
       icon: "mdi-notebook",
       text: "Current Approvals",
-      name: "approval-requests",
+      name: "approve-current",
       profileType: "ta-supervisor"
     },
     {
       icon: "mdi-notebook",
       text: "Past Approvals",
-      name: "approval-requests",
+      name: "approve-current",
       profileType: "ta-supervisor"
     },
     {
