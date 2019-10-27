@@ -1,33 +1,34 @@
 <template lang="pug">
   v-data-table(
     :headers="headers"
-    :items="pastta"
-    :sort-by="['calories', 'fat']"
+    :items="pastAssignments"
+    :sort-by="['date', 'fat']"
     :sort-desc="[false, true]"
     multi-sort
     class="elevation-1")
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "PastAssignment",
   data() {
     return {
       headers: [
         {
-          text: "Month",
+          text: "Date",
           align: "left",
           sortable: false,
-          value: "month"
+          value: "date_submitted"
         },
-        { text: "Course Code", value: "coursecode" },
-        { text: "Course Name", value: "coursename" },
-        { text: "TA Supervisor", value: "tasupervisor" },
+        { text: "Course Code", value: "course_code" },
+        { text: "Course Name", value: "course_name" },
+        { text: "TA Supervisor", value: "ta_supervisor" },
         { text: "Status", value: "status" }
       ],
-      pastta: [
+      items: [
         {
-          month: "Sept",
+          date: "Sept",
           coursecode: "EE213",
           tasupervisor: "Faculty Name",
           status: "approved/pending",
@@ -35,7 +36,17 @@ export default {
         }
       ]
     };
-  }
+  },
+  computed: {
+    ...mapGetters("pastAssignments", ["pastAssignments"]),
+
+  },
+    methods:{
+        ...mapActions("pastAssignments", ["fetchPastAssignments"])
+    },
+    mounted() {
+        this.fetchPastAssignments();
+    }
 };
 </script>
 
