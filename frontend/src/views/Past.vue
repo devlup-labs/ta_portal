@@ -5,12 +5,10 @@
 
 <script>
 import PastAssignment from "../components/PastAssignment";
-import FeedbackTextBox from "../components/FeedbackTextBox";
 export default {
   name: "Past",
   components: {
-    PastAssignment,
-    FeedbackTextBox
+    PastAssignment
   }
 };
 </script>
