@@ -1,5 +1,6 @@
 <template lang="pug">
-    PastAssignment
+    v-container( fluid )
+        PastAssignment
 </template>
 
 <script>
