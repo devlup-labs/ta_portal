@@ -26,7 +26,7 @@ class Feedback(models.Model):
     STATUS = (
         ('1', 'UnReviewed'),
         ('2', 'Approved'),
-        ('3', 'Changes Requested')
+        ('3', 'Declined')
     )
 
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
@@ -38,8 +38,8 @@ class Feedback(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        if self.status == '2':
-            self.date_approved = datetime.now().date()
-        else:
+        if self.status == '1':
             self.date_approved = None
+        else:
+            self.date_approved = datetime.now().date()
         super().save()
