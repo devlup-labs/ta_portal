@@ -3,7 +3,8 @@ from rest_framework.decorators import action
 
 from core.models import Course, Feedback, Assignment
 
-from core.api.serializers import CourseSerializer, FeedbackListSerializer,FeedbackSerializer, AssignmentSerializer
+from core.api.serializers import CourseSerializer, FeedbackListSerializer, FeedbackSerializer, AssignmentSerializer, \
+    SubmitFeedbackSerializer
 
 from datetime import date
 
@@ -23,7 +24,12 @@ class FeedbackViewSet(viewsets.ModelViewSet):
     serializer_class = FeedbackSerializer
 
     def get_serializer_class(self):
-        return FeedbackListSerializer if self.action == 'current' or self.action == 'past' else self.serializer_class
+        if self.action == 'current' or self.action == 'past':
+            return FeedbackListSerializer
+        if self.action == 'submit':
+            return SubmitFeedbackSerializer
+        else:
+            return self.serializer_class
 
     def get_queryset(self, queryset=None):
         today = date.today()
@@ -35,6 +41,12 @@ class FeedbackViewSet(viewsets.ModelViewSet):
             return self.queryset.filter(
                 assignment__teaching_assistant__user=self.request.user,
                 date_submitted__month=today.month)
+        elif self.action == 'submit':
+            return Assignment.objects.filter(
+                teaching_assistant__user=self.request.user
+            ).exclude(id__in=Feedback.objects.filter(
+                    assignment__teaching_assistant__user=self.request.user,
+                    date_submitted__month=today.month).values_list('assignment'))
         else:
             return super().get_queryset()
 
@@ -44,4 +56,8 @@ class FeedbackViewSet(viewsets.ModelViewSet):
 
     @action(methods=['get'], detail=False)
     def current(self, request, *args, **kwargs):
+        return self.list(request, args, kwargs)
+
+    @action(methods=['get'], detail=False)
+    def submit(self, request, *args, **kwargs):
         return self.list(request, args, kwargs)

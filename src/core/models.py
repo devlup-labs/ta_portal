@@ -24,9 +24,9 @@ class Assignment(models.Model):
 
 class Feedback(models.Model):
     STATUS = (
-        ('1', 'UnReviewed'),
+        ('1', 'Pending Approval'),
         ('2', 'Approved'),
-        ('3', 'Declined')
+        ('3', 'Not Approved')
     )
 
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
