@@ -14,8 +14,9 @@
                                 v-row
                                     h4 {{DialogBoxItem.course_code}}, {{DialogBoxItem.course_name}}
                                     v-col.text-right
-                                        v-chip.ma-2(color="#E4F5F5" align="right" v-if="approvalStatus")  Approved on {{DialogBoxItem.date_approved}}
-                                        v-chip.ma-2(color="#E5CCD4" align="right" v-else)  Declined on {{DialogBoxItem.date_approved}}
+                                        v-chip.ma-2(color="#FCF9EB" align="right" v-if="DialogBoxItem.status === 'Pending Approval'")  Submitted on {{DialogBoxItem.date_submitted}}
+                                        v-chip.ma-2(color="#E4F5F5" align="right" v-else-if="DialogBoxItem.status === 'Approved'")  Approved on {{DialogBoxItem.date_approved}}
+                                        v-chip.ma-2(color="#E5CCD4" align="right" v-else-if="DialogBoxItem.status === 'Not Approved'")  Declined on {{DialogBoxItem.date_approved}}
                             div
                                 div
                                     v-card-text
@@ -95,12 +96,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("pastAssignments", ["pastAssignments"]),
-    approvalStatus() {
-      return this.DialogBoxItem.status === "Approved";
-    }
+    ...mapGetters("pastAssignments", ["pastAssignments"])
   },
-  mounted() {
+  beforeMount() {
     this.fetchPastAssignments();
   }
 };

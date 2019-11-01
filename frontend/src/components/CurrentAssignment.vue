@@ -1,56 +1,147 @@
 <template lang="pug">
-  v-data-table(
-    :headers="headers"
-    :items="data"
-    :sort-by="['calories', 'fat']"
-    :sort-desc="[false, true]"
-    multi-sort
-    class="elevation-1")
+    v-data-table.elevation-1(
+        :headers='headers'
+        item-key='course_code'
+        :items='currentAssignments'
+        sort-by='course_code')
+        template(v-slot:top='')
+            v-toolbar(flat='', color='white')
+                v-divider.mx-4(inset='', vertical='')
+                v-spacer
+                v-dialog(v-model='dialog', max-width='1000px')
+                    v-card.rounded-card
+                        v-container.pa-2
+                            v-card-title
+                                v-row
+                                    h4 {{DialogBoxItem.course_code}}, {{DialogBoxItem.course_name}}
+                                    v-col.text-right
+                                        v-chip.ma-2(color="#FCF9EB" align="right"
+                                            v-if="DialogBoxItem.status === 'Pending Approval'")  Submitted on {{DialogBoxItem.date_submitted}}
+                                        v-chip.ma-2(color="#E4F5F5" align="right"
+                                            v-else-if="DialogBoxItem.status === 'Approved'")  Approved on {{DialogBoxItem.date_approved}}
+                                        v-chip.ma-2(color="#E5CCD4" align="right"
+                                            v-else-if="DialogBoxItem.status === 'Not Approved'")  Declined on {{DialogBoxItem.date_approved}}
+                            div
+                                div
+                                    v-card-text
+                                        h3 Completed TA Duties
+                                        v-row
+                                            v-textarea(
+                                                name="input-7-1"
+                                                filled
+                                                background-color="white"
+                                                label=""
+                                                auto-grow
+                                                rounded
+                                                v-model="DialogBoxItem.duties_completed"
+                                                outlined
+                                                :readonly="isReadOnly")
+                                        h3(v-if="DialogBoxItem.comment") Supervisor's Comment
+                                        v-row(v-if="DialogBoxItem.comment")
+                                            v-textarea(
+                                                name="input-7-1"
+                                                filled
+                                                background-color="white"
+                                                label=""
+                                                auto-grow
+                                                rounded
+                                                :value="DialogBoxItem.comment"
+                                                outlined
+                                                readonly)
+                                div(align="right")
+                                    v-btn.ma-2(width=200 rounded outlined color="blue" right @click="close") Close
+                                    v-btn.ma-2(width=200 rounded outlined color="blue" right @click="update"
+                                                v-if="DialogBoxItem.status === 'Not Approved'") Resubmit
+                                    v-btn.ma-2(width=200 rounded color="#00948E" right @click="submit"
+                                        v-if="DialogBoxItem.status === 'Submit TA Release Request'") Send
+        template(v-slot:item.status='{ item }')
+            v-icon.mr-2(small='', @click='editItem(item)') {{item.status}} (View Form)
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
-  name: "CurrentAssignment",
-  data() {
-    return {
-      headers: [
-        {
-          text: "Course Code ",
-          align: "left",
-          sortable: false,
-          value: "name"
-        },
-        { text: "Course name", value: "coursename" },
-        { text: "TA Supervisor", value: "supervisor" },
-        { text: "Status", value: "status" },
-        { text: "Due By", value: "duedate" }
-      ],
-      data: [
-        {
-          name: "EE213",
-          coursename: "Signals and System",
-          supervisor: "TA name",
-          status: "submit/due",
-          duedate: "1 oct"
-        },
-        {
-          name: "EE213",
-          coursename: "Basic Electronics",
-          supervisor: "TA name",
-          status: "submit/due",
-          duedate: "--"
-        },
-        {
-          name: "EE213",
-          coursename: "Electronics Lab",
-          supervisor: "TA name",
-          status: "submit/due",
-          duedate: "--"
-        }
-      ]
-    };
+  data: () => ({
+    dialog: false,
+    headers: [
+      { text: "Course Code", value: "course_code" },
+      { text: "Course Name", value: "course_name" },
+      { text: "TA Supervisor", value: "ta_supervisor" },
+      { text: "Status", value: "status" },
+      { text: "Due By", value: "due_by" }
+    ],
+    DialogBoxIndex: -1,
+    DialogBoxItem: {
+      id: "",
+      course_code: "",
+      course_name: "",
+      duties_completed: "",
+      comment: "",
+      date_approved: "",
+      date_submitted: "",
+      status: ""
+    },
+    defaultItem: {
+      id: "",
+      course_code: "",
+      course_name: "",
+      duties_completed: "",
+      comment: "",
+      date_approved: "",
+      date_submitted: "",
+      status: ""
+    }
+  }),
+  methods: {
+    ...mapActions("currentAssignments", [
+      "fetchUnSubmittedAssignments",
+      "fetchCurrentAssignments",
+      "updateCurrentAssignment",
+      "submitCurrentAssignment"
+    ]),
+    editItem(item) {
+      this.DialogBoxIndex = this.currentAssignments.indexOf(item);
+      this.DialogBoxItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+    close() {
+      this.dialog = false;
+      setTimeout(() => {
+        this.DialogBoxItem = Object.assign({}, this.defaultItem);
+        this.DialogBoxIndex = -1;
+      }, 300);
+    },
+    update() {
+      if (this.DialogBoxIndex > -1) {
+        this.updateCurrentAssignment({
+          current_id: this.DialogBoxItem.id,
+          duties: this.DialogBoxItem.duties_completed
+        });
+      }
+      this.close();
+    },
+    submit() {
+      if (this.DialogBoxIndex > -1) {
+        this.submitCurrentAssignment({
+          duties_completed: this.DialogBoxItem.duties_completed,
+          assignment: this.DialogBoxItem.id
+        });
+      }
+      this.close();
+    }
+  },
+  computed: {
+    ...mapGetters("currentAssignments", ["currentAssignments"]),
+    isReadOnly() {
+      return (
+        this.DialogBoxItem.status === "Pending Approval" ||
+        this.DialogBoxItem.status === "Approved"
+      );
+    }
+  },
+  beforeMount() {
+    this.fetchUnSubmittedAssignments();
+    this.fetchCurrentAssignments();
   }
 };
 </script>
-
-<style scoped></style>

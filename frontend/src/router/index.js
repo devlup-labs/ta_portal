@@ -47,7 +47,7 @@ const router = new Router({
       path: "/past",
       name: "past",
       component: Past,
-      meta: { taOnly: true }
+      meta: { requiresAuth: true, taOnly: true }
     },
     {
       path: "/approve-current",
