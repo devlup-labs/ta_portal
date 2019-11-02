@@ -47,3 +47,15 @@ class SubmitFeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Assignment
         exclude = ['course', 'teaching_assistant']
+
+
+class ApproveFeedbackSerializer(serializers.ModelSerializer):
+    course_code = serializers.CharField(source='assignment.course.code')
+    student_name = serializers.SerializerMethodField()
+
+    def get_student_name(self, instance):
+        return instance.assignment.teaching_assistant.user.get_full_name()
+
+    class Meta:
+        model = Feedback
+        exclude = ['assignment', 'date_approved']
