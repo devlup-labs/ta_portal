@@ -38,7 +38,7 @@ class FeedbackViewSet(viewsets.ModelViewSet):
             return FeedbackListSerializer
         if self.action == 'submit':
             return SubmitFeedbackSerializer
-        if self.action == 'approve_current':
+        if self.action == 'approval_current':
             return ApproveFeedbackSerializer
         else:
             return self.serializer_class
@@ -59,7 +59,7 @@ class FeedbackViewSet(viewsets.ModelViewSet):
             ).exclude(id__in=Feedback.objects.filter(
                 assignment__teaching_assistant__user=self.request.user,
                 date_submitted__month=today.month).values_list('assignment'))
-        elif self.action == 'approve_current':
+        elif self.action == 'approval_current':
             return self.queryset.filter(
                 assignment__course__supervisor__user=self.request.user,
                 date_submitted__month=today.month,
@@ -81,5 +81,5 @@ class FeedbackViewSet(viewsets.ModelViewSet):
         return self.list(request, args, kwargs)
 
     @action(methods=['get'], detail=False)
-    def approve_current(self, request, *args, **kwargs):
+    def approval_current(self, request, *args, **kwargs):
         return self.list(request, args, kwargs)
