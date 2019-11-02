@@ -41,7 +41,7 @@ const router = new Router({
       path: "/current",
       name: "current",
       component: Current,
-      meta: { taOnly: true }
+      meta: { requiresAuth: true, taOnly: true }
     },
     {
       path: "/past",
