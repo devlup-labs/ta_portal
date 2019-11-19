@@ -12,7 +12,8 @@ import {
 import Logout from "../views/Logout";
 import Past from "../views/Past";
 import ApproveCurrent from "../views/ApproveCurrent";
-import CurrentAssignment from "../components/CurrentAssignment";
+import Current from "../views/Current";
+import DutyAssigner from "../components/DutyAssigner";
 Vue.use(Router);
 
 const router = new Router({
@@ -60,6 +61,11 @@ const router = new Router({
       name: "ta-assignments",
       component: TaAssignment,
       meta: { taCoordinatorOnly: true }
+    },
+    {
+      path: "/duty-assigner",
+      name: "da",
+      component: DutyAssigner
     }
   ]
 });
