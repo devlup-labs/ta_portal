@@ -10,7 +10,6 @@ import {
   TaCoordinatorOnly
 } from "./auth-middleware";
 import Logout from "../views/Logout";
-import Current from "../views/Current";
 import Past from "../views/Past";
 import ApproveCurrent from "../views/ApproveCurrent";
 import CurrentAssignment from "../components/CurrentAssignment";
