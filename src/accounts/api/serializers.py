@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from accounts.models import TeachingAssistantProfile, TeachingAssistantSupervisorProfile,\
-    TeachingAssistantCoordinatorProfile
+    TeachingAssistantCoordinatorProfile, OfficeProfile
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -25,4 +25,10 @@ class TeachingAssistantCoordinatorProfileSerializer(serializers.ModelSerializer)
 class TeachingAssistantSupervisorProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = TeachingAssistantSupervisorProfile
+        fields = '__all__'
+
+
+class OfficeProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OfficeProfile
         fields = '__all__'
