@@ -11,7 +11,10 @@ import {
 } from "./auth-middleware";
 import Logout from "../views/Logout";
 import Past from "../views/Past";
+import Current from "../views/Current";
 import ApproveCurrent from "../views/ApproveCurrent";
+import PastRelease from "../views/PastRelease";
+import CurrentRelease from "../views/CurrentRelease";
 import CurrentAssignment from "../components/CurrentAssignment";
 Vue.use(Router);
 
@@ -36,6 +39,16 @@ const router = new Router({
       name: "profile",
       component: Profile,
       meta: { requiresAuth: true }
+    },
+    {
+      path: "/currenttarelease",
+      name: "currenttarelease",
+      component: CurrentRelease
+    },
+    {
+      path: "/pasttarelease",
+      name: "pasttarelease",
+      component: PastRelease
     },
     {
       path: "/current",
