@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="TDF-8">
+    <title></title>
+</head>
+
+<body style="font-size: 15px">
+<div class="container">
+<Table><tr><td width="30%">
+            <img src="http://iitj.ac.in/uploaded_docs/IITJ%20Logo__Smallest.jpg" style="height: 100px;width: 100px    ">
+</td><td>
+
+            <h1 align="right" style=" margin: 0; color: #555555"> Department of {{ department }}</h1>
+            <h2 align="right" style=" margin: 0; line-height: 0px;color: #555555"> Indian Institute of Technology Jodhpur</h2>
+            <p align="right" style="line-height: 1px; margin: 0; font-size: 15px;color: #555555">NH 65, Magaur Road, Karwad, Jodhpur 342037, INDIA</p>
+            <p align="right" style="line-height: 0px; margin: 0; font-size: 15px;color: #555555">Phone: (0291) 280 1352; eMail: head_ee@iitj.ac.in</p>
+</td></tr></Table>
+</div>
+
+<hr>
+    <br>
+
+    <div class="container-fluid">
+        <p align="right"> {{ date }} {{ month }} {{ year }}</p>
+        <b style="font-size: larger">
+            To <br>
+            Assistant Registrar (Students)
+        </b>
+        <p> This is to certify that the following M.Tech students in the Department of {{ department }} have
+            worked
+            for 8 hours per week during the month of {{ month }} {{ year }}.
+        </p>
+    </div>
+    <br><br>
+    <div align="center">
+        <table border="1">
+            <tr style="padding: 2px">
+                <th>S. No.</th>
+                <th>Roll No.</th>
+                <th>Name</th>
+            </tr>
+            {% for feedback in feedbacks %}
+                <tr style="padding: 2px">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ feedback.assignment.teaching_assistant.roll_no}}</td>
+                    <td>{{ feedback.assignment.teaching_assistant.user.get_full_name }}</td>
+                </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    <br><br>
+    <div align="right">
+        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>
+        <br>
+        Head of the Department
+    </div>
+</div>
+</body>
+</html>
