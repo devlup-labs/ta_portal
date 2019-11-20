@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import TeachingAssistantProfile, TeachingAssistantSupervisorProfile, TeachingAssistantCoordinatorProfile
+
+from .models import TeachingAssistantProfile, TeachingAssistantSupervisorProfile, TeachingAssistantCoordinatorProfile, OfficeProfile
 
 
 @admin.register(TeachingAssistantProfile)
@@ -23,4 +24,11 @@ class TeachingAssistantCoordinatorAdmin(admin.ModelAdmin):
 
     class Meta:
         model = TeachingAssistantCoordinatorProfile
+        fields = '__all__'
+
+@admin.register(OfficeProfile)
+class OfficeAdmin(admin.ModelAdmin):
+
+    class Meta:
+        model = OfficeProfile
         fields = '__all__'
