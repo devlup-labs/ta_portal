@@ -6,7 +6,6 @@
         sort-by='course_code')
         template(v-slot:top='')
             v-toolbar(flat='', color='white')
-                v-divider.mx-4(inset='', vertical='')
                 v-spacer
                 v-dialog(v-model='dialog', max-width='1000px')
                     v-card.rounded-card

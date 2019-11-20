@@ -1,5 +1,7 @@
 <template lang="pug">
-    CurrentAssignment
+    v-row
+        v-col
+            CurrentAssignment
 </template>
 
 <script>
