@@ -1,6 +1,7 @@
 <template lang="pug">
-    h4 SEP 2019 SEMESTER I, AY 2019-2020
-        v-data-table.elevation-1(
+  div 
+     h4 SEP 2019 SEMESTER I, AY 2019-2020
+     v-data-table.elevation-1(
             :headers='headers'
             item-key='course_code'
             :items='currentReleases'
