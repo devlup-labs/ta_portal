@@ -8,9 +8,7 @@ import Logout from "../views/Logout";
 import Past from "../views/Past";
 import Current from "../views/Current";
 import ApproveCurrent from "../views/ApproveCurrent";
-import PastRelease from "../views/PastRelease";
 import CurrentRelease from "../views/CurrentRelease";
-import TACoordi from "../views/TACoordi";
 Vue.use(Router);
 
 const router = new Router({
@@ -38,12 +36,8 @@ const router = new Router({
     {
       path: "/currenttarelease",
       name: "currenttarelease",
-      component: CurrentRelease
-    },
-    {
-      path: "/pasttarelease",
-      name: "pasttarelease",
-      component: PastRelease
+      component: CurrentRelease,
+      meta: { OfficeOnly: true }
     },
     {
       path: "/current",
@@ -68,12 +62,6 @@ const router = new Router({
       name: "ta-assignments",
       component: TaAssignment,
       meta: { taCoordinatorOnly: true }
-    },
-    {
-      path: "/assign",
-      name: "assign",
-      component: TACoordi,
-      meta: { requiresAuth: true, taCoordinatorOnly: true }
     }
   ]
 });

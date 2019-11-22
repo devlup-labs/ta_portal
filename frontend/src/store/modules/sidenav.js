@@ -32,6 +32,18 @@ const state = {
       name: "ta-assignments",
       profileType: "ta-coordinator"
     },
+    {
+      icon: "mdi-notebook",
+      text: "Current TA Release",
+      name: "currenttarelease",
+      profileType: "office"
+    },
+    {
+      icon: "mdi-notebook",
+      text: "Past TA Release",
+      name: "currenttarelease",
+      profileType: "office"
+    },
     { divider: true },
     { heading: "Academics" },
     { icon: "mdi-calendar", text: "Calendar" },

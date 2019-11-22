@@ -1,34 +1,38 @@
 <template lang="pug">
     div
-        h4 SEP 2019 SEMESTER I, AY 2019-2020
+        h4.pa-5 SEP 2019 SEMESTER I, AY 2019-2020
         v-data-table.elevation-1(
             :headers='headers'
-            item-key='course_code'
-            :items='currentReleases'
-            sort-by='Programme')
+            item-key='programme'
+            :items='feedbackCount'
+            sort-by='programme')
+            template(v-slot:item.reports='{ item }')
+                a(:href= " '//' + `${item.link}`" target="_blank") View
+
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   data: () => ({
-    dialog: false,
     headers: [
-      { text: "Programme", value: "Programme" },
-      { text: "Submitted", value: "Submitted" },
-      { text: "Approved", value: "Approved" },
-      { text: "Rejected", value: "Rejected" },
-      { text: "Pending", value: "Pending" },
-      { text: "Reports", value: "Report" }
-    ],
-    defaultItem: {
-      Programme: "",
-      Submitted: "",
-      Approved: "",
-      Rejected: "",
-      Pending: "",
-      Reports: ""
-    }
-  })
+      { text: "Programme", value: "programme" },
+      { text: "Submitted", value: "submitted" },
+      { text: "Approved", value: "approved" },
+      { text: "Rejected", value: "rejected" },
+      { text: "Pending", value: "pending" },
+      { text: "Reports", value: "reports" }
+    ]
+  }),
+  methods: {
+    ...mapActions("currentTaReleases", ["fetchFeedbackCount"])
+  },
+  computed: {
+    ...mapGetters("currentTaReleases", ["feedbackCount"])
+  },
+  beforeMount() {
+    this.fetchFeedbackCount();
+  }
 };
 </script>
 
