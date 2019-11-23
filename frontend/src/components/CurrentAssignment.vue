@@ -140,7 +140,6 @@ export default {
   },
   beforeMount() {
     this.fetchUnSubmittedAssignments();
-    this.fetchCurrentAssignments();
   }
 };
 </script>

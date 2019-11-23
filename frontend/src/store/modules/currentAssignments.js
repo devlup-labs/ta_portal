@@ -31,9 +31,10 @@ const mutations = {
 };
 
 const actions = {
-  fetchUnSubmittedAssignments({ commit }) {
+  fetchUnSubmittedAssignments({ commit, dispatch }) {
     httpClient.get("api/core/feedbacks/submit/").then(response => {
       commit("SET_CURRENT_ASSIGNMENTS", response.data);
+      dispatch("fetchCurrentAssignments");
     });
   },
   fetchCurrentAssignments({ commit }) {
