@@ -16,6 +16,7 @@ import ApproveCurrent from "../views/ApproveCurrent";
 import PastRelease from "../views/PastRelease";
 import CurrentRelease from "../views/CurrentRelease";
 import CurrentAssignment from "../components/CurrentAssignment";
+import TACoordi from "../views/TACoordi";
 Vue.use(Router);
 
 const router = new Router({
@@ -43,7 +44,7 @@ const router = new Router({
     {
       path: "/currenttarelease",
       name: "currenttarelease",
-      component: CurrentRelease
+      component: TACoordi
     },
     {
       path: "/pasttarelease",
