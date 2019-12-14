@@ -15,7 +15,6 @@ import Current from "../views/Current";
 import ApproveCurrent from "../views/ApproveCurrent";
 import PastRelease from "../views/PastRelease";
 import CurrentRelease from "../views/CurrentRelease";
-import CurrentAssignment from "../components/CurrentAssignment";
 import TACoordi from "../views/TACoordi";
 Vue.use(Router);
 
@@ -44,7 +43,7 @@ const router = new Router({
     {
       path: "/currenttarelease",
       name: "currenttarelease",
-      component: TACoordi
+      component: CurrentRelease
     },
     {
       path: "/pasttarelease",
@@ -74,6 +73,12 @@ const router = new Router({
       name: "ta-assignments",
       component: TaAssignment,
       meta: { taCoordinatorOnly: true }
+    },
+    {
+      path: "/assign",
+      name: "assign",
+      component: TACoordi,
+      meta: { requiresAuth: true, taCoordinatorOnly: true }
     }
   ]
 });

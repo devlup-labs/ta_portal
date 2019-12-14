@@ -10,7 +10,7 @@
             v-col(cols="8")
                 v-btn Save Assignment
                 v-btn Reset
-</template>
+</template>n
 
 <script>
 export default {
