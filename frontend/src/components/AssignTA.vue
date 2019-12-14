@@ -1,11 +1,14 @@
 <template lang="pug">
+  div
     v-data-table(
         :headers="headers"
-        :items="name"
+        :items="names"
         :single-select="singleSelect"
         item-key="name"
         show-select
         class="elevation-1")
+        template(v-slot:item.hours="{ item }")
+            v-text-field(type="number" v-model.number="item.hours")
         template(v-slot:top)
             v-toolbar(color="accent" :prominent="false")
                 v-row
@@ -24,6 +27,7 @@
                 v-col
                     v-text-field.mx-4(append-icon="mdi-mic" flat hide-details label="Search"
                         prepend-icon="mdi-magnify" outlined)
+
 </template>
 
 <script>
