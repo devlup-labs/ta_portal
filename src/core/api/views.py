@@ -89,34 +89,46 @@ class FeedbackViewSet(viewsets.ModelViewSet):
 
 class FeedbackCountView(APIView):
 
-    def get(self, request, format=None):
-        today = date.today()
-        mtech_submitted = Feedback.objects.filter(date_submitted__month=today.month,
+    def get(self, request, month, year):
+        mtech_submitted = Feedback.objects.filter(date_submitted__month=month,
+                                                  date_submitted__year=year,
                                                   assignment__teaching_assistant__program="1").count()
-        mtech_approved = Feedback.objects.filter(date_submitted__month=today.month,
+        mtech_approved = Feedback.objects.filter(date_submitted__month=month,
+                                                 date_submitted__year=year,
                                                  assignment__teaching_assistant__program="1", status="2").count()
-        mtech_rejected = Feedback.objects.filter(date_submitted__month=today.month,
+        mtech_rejected = Feedback.objects.filter(date_submitted__month=month,
+                                                 date_submitted__year=year,
                                                  assignment__teaching_assistant__program="1", status="3").count()
-        mtech_pending = Feedback.objects.filter(date_submitted__month=today.month,
+        mtech_pending = Feedback.objects.filter(date_submitted__month=month,
+                                                date_submitted__year=year,
                                                 assignment__teaching_assistant__program="1", status="1").count()
 
-        phd_mhrd_submitted = Feedback.objects.filter(date_submitted__month=today.month,
+        phd_mhrd_submitted = Feedback.objects.filter(date_submitted__month=month,
+                                                     date_submitted__year=year,
                                                      assignment__teaching_assistant__program="2").count()
-        phd_mhrd_approved = Feedback.objects.filter(date_submitted__month=today.month,
+        phd_mhrd_approved = Feedback.objects.filter(date_submitted__month=month,
+                                                    date_submitted__year=year,
                                                     assignment__teaching_assistant__program="2", status="2").count()
-        phd_mhrd_rejected = Feedback.objects.filter(date_submitted__month=today.month,
+        phd_mhrd_rejected = Feedback.objects.filter(date_submitted__month=month,
+                                                    date_submitted__year=year,
                                                     assignment__teaching_assistant__program="2", status="3").count()
-        phd_mhrd_pending = Feedback.objects.filter(date_submitted__month=today.month,
+        phd_mhrd_pending = Feedback.objects.filter(date_submitted__month=month,
+                                                   date_submitted__year=year,
                                                    assignment__teaching_assistant__program="2", status="1").count()
 
-        phd_vss_submitted = Feedback.objects.filter(date_submitted__month=today.month,
+        phd_vss_submitted = Feedback.objects.filter(date_submitted__month=month,
+                                                    date_submitted__year=year,
                                                     assignment__teaching_assistant__program="3").count()
-        phd_vss_approved = Feedback.objects.filter(date_submitted__month=today.month,
+        phd_vss_approved = Feedback.objects.filter(date_submitted__month=month,
+                                                   date_submitted__year=year,
                                                    assignment__teaching_assistant__program="3", status="2").count()
-        phd_vss_rejected = Feedback.objects.filter(date_submitted__month=today.month,
+        phd_vss_rejected = Feedback.objects.filter(date_submitted__month=month,
+                                                   date_submitted__year=year,
                                                    assignment__teaching_assistant__program="3", status="3").count()
-        phd_vss_pending = Feedback.objects.filter(date_submitted__month=today.month,
+        phd_vss_pending = Feedback.objects.filter(date_submitted__month=month,
+                                                  date_submitted__year=year,
                                                   assignment__teaching_assistant__program="3", status="1").count()
+        url = self.request.environ['HTTP_HOST']
 
         content = [
             {
@@ -125,7 +137,7 @@ class FeedbackCountView(APIView):
                 "approved": mtech_approved,
                 "rejected": mtech_rejected,
                 "pending": mtech_pending,
-                "link": 'localhost:8000/pdf/1/'
+                "link": '{}/pdf/{}/{}/{}/'.format(url, month, year, 1)
             },
             {
                 "programme": 'Ph.D MDRH',
@@ -133,7 +145,7 @@ class FeedbackCountView(APIView):
                 "approved": phd_mhrd_approved,
                 "rejected": phd_mhrd_rejected,
                 "pending": phd_mhrd_pending,
-                "link": 'localhost:8000/pdf/2/'
+                "link": '{}/pdf/{}/{}/{}/'.format(url, month, year, 2)
             },
             {
                 "programme": 'Ph.D VSS',
@@ -141,7 +153,7 @@ class FeedbackCountView(APIView):
                 "approved": phd_vss_approved,
                 "rejected": phd_vss_rejected,
                 "pending": phd_vss_pending,
-                "link": 'localhost:8000/pdf/3/'
+                "link": '{}/pdf/{}/{}/{}/'.format(url, month, year, 3)
             }
         ]
         return Response(content)

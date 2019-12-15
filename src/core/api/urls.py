@@ -8,6 +8,6 @@ router.register(r'feedbacks', FeedbackViewSet)
 router.register(r'assignments', AssignmentViewSet)
 
 urlpatterns = [
-    path("feedback-count/", FeedbackCountView.as_view(), name='feedback-count')
+    path("feedback-count/<int:month>/<int:year>/", FeedbackCountView.as_view(), name='feedback-count')
 ]
 urlpatterns += router.urls

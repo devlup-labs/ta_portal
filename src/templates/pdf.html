@@ -41,13 +41,15 @@
                 <th>Roll No.</th>
                 <th>Name</th>
             </tr>
-            {% for feedback in feedbacks %}
+            {% if tas %}
+            {% for ta in tas %}
                 <tr style="padding: 2px">
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ feedback.assignment.teaching_assistant.roll_no}}</td>
-                    <td>{{ feedback.assignment.teaching_assistant.user.get_full_name }}</td>
+                    <td>{{ ta.roll_no}}</td>
+                    <td>{{ ta.user.get_full_name }}</td>
                 </tr>
             {% endfor %}
+            {% endif %}
 
         </table>
 
