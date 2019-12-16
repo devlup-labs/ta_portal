@@ -4,7 +4,6 @@ from .render import Render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.decorators import method_decorator
-from core.models import Feedback
 from accounts.models import TeachingAssistantProfile
 
 
