@@ -24,10 +24,12 @@ const mutations = {
 };
 
 const actions = {
-  fetchFeedbackCount({ commit }) {
-    httpClient.get("/api/core/feedback-count/").then(response => {
-      commit("SET_FEEDBACK_COUNT", response.data);
-    });
+  fetchFeedbackCount({ commit }, { month, year }) {
+    httpClient
+      .get(`/api/core/feedback-count/${month}/${year}/`)
+      .then(response => {
+        commit("SET_FEEDBACK_COUNT", response.data);
+      });
   }
 };
 

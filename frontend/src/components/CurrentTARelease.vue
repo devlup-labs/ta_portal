@@ -1,6 +1,6 @@
 <template lang="pug">
     div
-        h4.pa-5 SEP 2019 SEMESTER I, AY 2019-2020
+        h4.pa-5 {{ currentDate() }}
         v-data-table.elevation-1(
             :headers='headers'
             item-key='programme'
@@ -25,13 +25,36 @@ export default {
     ]
   }),
   methods: {
-    ...mapActions("currentTaReleases", ["fetchFeedbackCount"])
+    ...mapActions("currentTaReleases", ["fetchFeedbackCount"]),
+    currentDate() {
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ];
+      const today = new Date();
+      const month = today.getMonth();
+      const year = today.getFullYear();
+      return monthNames[month] + " " + year;
+    }
   },
   computed: {
     ...mapGetters("currentTaReleases", ["feedbackCount"])
   },
   beforeMount() {
-    this.fetchFeedbackCount();
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    this.fetchFeedbackCount({ month, year });
   }
 };
 </script>

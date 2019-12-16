@@ -37,31 +37,31 @@ const router = new Router({
       path: "/currenttarelease",
       name: "currenttarelease",
       component: CurrentRelease,
-      meta: { OfficeOnly: true }
+      meta: { requiresAuth: true }
     },
     {
       path: "/current",
       name: "current",
       component: Current,
-      meta: { requiresAuth: true, taOnly: true }
+      meta: { requiresAuth: true }
     },
     {
       path: "/past",
       name: "past",
       component: Past,
-      meta: { requiresAuth: true, taOnly: true }
+      meta: { requiresAuth: true }
     },
     {
       path: "/approve-current",
       name: "approve-current",
       component: ApproveCurrent,
-      meta: { taSupervisorOnly: true }
+      meta: { requiresAuth: true }
     },
     {
       path: "/ta-assignments",
       name: "ta-assignments",
       component: TaAssignment,
-      meta: { taCoordinatorOnly: true }
+      meta: { requiresAuth: true }
     }
   ]
 });
