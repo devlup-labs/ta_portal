@@ -140,7 +140,7 @@ class FeedbackCountView(APIView):
                 "link": '{}/pdf/{}/{}/{}/'.format(url, month, year, 1)
             },
             {
-                "programme": 'Ph.D MDRH',
+                "programme": 'Ph.D MHRD',
                 "submitted": phd_mhrd_submitted,
                 "approved": phd_mhrd_approved,
                 "rejected": phd_mhrd_rejected,
