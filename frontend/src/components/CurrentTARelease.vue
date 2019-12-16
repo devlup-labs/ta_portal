@@ -25,7 +25,7 @@ export default {
     ]
   }),
   methods: {
-    ...mapActions("currentTaReleases", ["fetchFeedbackCount"]),
+    ...mapActions("taReleases", ["fetchFeedbackCount"]),
     currentDate() {
       const monthNames = [
         "January",
@@ -48,12 +48,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("currentTaReleases", ["feedbackCount"])
+    ...mapGetters("taReleases", ["feedbackCount"])
   },
   beforeMount() {
     const today = new Date();
-    const month = today.getMonth() + 1;
-    const year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let year = today.getFullYear();
+    if (month > 12) {
+      month = month - 12;
+      year = year + 1;
+    }
     this.fetchFeedbackCount({ month, year });
   }
 };

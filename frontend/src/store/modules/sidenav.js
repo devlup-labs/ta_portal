@@ -41,7 +41,7 @@ const state = {
     {
       icon: "mdi-notebook",
       text: "Past TA Release",
-      name: "currenttarelease",
+      name: "pasttarelease",
       profileType: "office"
     },
     { divider: true },

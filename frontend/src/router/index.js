@@ -8,6 +8,7 @@ import Logout from "../views/Logout";
 import Past from "../views/Past";
 import Current from "../views/Current";
 import ApproveCurrent from "../views/ApproveCurrent";
+import PastRelease from "../views/PastRelease";
 import CurrentRelease from "../views/CurrentRelease";
 Vue.use(Router);
 
@@ -37,6 +38,12 @@ const router = new Router({
       path: "/currenttarelease",
       name: "currenttarelease",
       component: CurrentRelease,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: "/pasttarelease",
+      name: "pasttarelease",
+      component: PastRelease,
       meta: { requiresAuth: true }
     },
     {
