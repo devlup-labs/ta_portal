@@ -15,4 +15,4 @@ class Render:
         if not pdf.err:
             return HttpResponse(response.getvalue(), content_type='application/pdf')
         else:
-            return HttpResponse("Error Rendering PDF", status=400)
+            return HttpResponse("Error Rendering PDF", status=422)

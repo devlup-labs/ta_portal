@@ -13,6 +13,20 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
 export default {
   data: () => ({
     headers: [
@@ -27,24 +41,8 @@ export default {
   methods: {
     ...mapActions("taReleases", ["fetchFeedbackCount"]),
     currentDate() {
-      const monthNames = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-      ];
       const today = new Date();
-      const month = today.getMonth();
-      const year = today.getFullYear();
-      return monthNames[month] + " " + year;
+      return `${monthNames[today.getMonth()]} ${today.getFullYear()}`;
     }
   },
   computed: {
