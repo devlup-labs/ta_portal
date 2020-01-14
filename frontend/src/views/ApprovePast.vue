@@ -1,9 +1,15 @@
-<template>
+<template lang="pug">
+    PastApprovalRequests
 </template>
 
 <script>
+import PastApprovalRequests from "../components/PastApprovalRequests";
+
 export default {
-  name: "ApprovePast"
+  name: "ApprovePast",
+  components: {
+    PastApprovalRequests
+  }
 };
 </script>
 

@@ -17,7 +17,7 @@ const state = {
     {
       icon: "mdi-notebook",
       text: "Past Approvals",
-      name: "approve-current",
+      name: "approve-past",
       profileType: "ta-supervisor"
     },
     {

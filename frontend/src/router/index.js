@@ -8,6 +8,7 @@ import Logout from "../views/Logout";
 import Past from "../views/Past";
 import Current from "../views/Current";
 import ApproveCurrent from "../views/ApproveCurrent";
+import ApprovePast from "../views/ApprovePast";
 import PastRelease from "../views/PastRelease";
 import CurrentRelease from "../views/CurrentRelease";
 Vue.use(Router);
@@ -63,6 +64,12 @@ const router = new Router({
       name: "approve-current",
       component: ApproveCurrent,
       meta: { requiresAuth: true }
+    },
+    {
+      path: "/approve-past",
+      name: "approve-past",
+      component: ApprovePast
+      //meta: { requiresAuth: true }
     },
     {
       path: "/ta-assignments",
