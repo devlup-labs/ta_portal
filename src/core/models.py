@@ -8,6 +8,7 @@ from datetime import datetime
 class Course(models.Model):
     name = models.CharField(max_length=128)
     code = models.CharField(max_length=8, help_text="Enter the Course Code")
+    tas_required = models.PositiveIntegerField(default=0)
     supervisor = models.ForeignKey(TeachingAssistantSupervisorProfile, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -17,6 +18,8 @@ class Course(models.Model):
 class Assignment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     teaching_assistant = models.ForeignKey(TeachingAssistantProfile, on_delete=models.CASCADE)
+    assigned_hours = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return "{}({})".format(self.course, self.teaching_assistant)

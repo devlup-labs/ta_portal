@@ -1,13 +1,21 @@
 from rest_framework import serializers
 
 from core.models import Course, Feedback, Assignment
+from accounts.models import TeachingAssistantProfile
 from datetime import datetime
+from django.db.models import Sum
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    supervisor_name = serializers.CharField(source='supervisor.user.get_full_name')
+    assigned_ta = serializers.SerializerMethodField()
+
     class Meta:
         model = Course
-        fields = '__all__'
+        exclude = ['supervisor', ]
+
+    def get_assigned_ta(self, instance):
+        return instance.assignment_set.filter(is_active=True).count()
 
 
 class AssignmentSerializer(serializers.ModelSerializer):
@@ -46,7 +54,7 @@ class SubmitFeedbackSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Assignment
-        exclude = ['course', 'teaching_assistant']
+        exclude = ['course', 'teaching_assistant', 'is_active', 'assigned_hours']
 
 
 class ApproveFeedbackSerializer(serializers.ModelSerializer):
@@ -57,3 +65,16 @@ class ApproveFeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feedback
         exclude = ['assignment', 'date_approved', 'status']
+
+
+class AssignTaSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(source='user.get_full_name')
+    availability = serializers.SerializerMethodField()
+
+    class Meta:
+        model = TeachingAssistantProfile
+        fields = ['id', 'roll_no', 'availability', 'name']
+
+    def get_availability(self, instance):
+        return 8 - instance.assignment_set.filter(is_active=True).aggregate(
+                                                                Sum('assigned_hours'))['assigned_hours__sum']
