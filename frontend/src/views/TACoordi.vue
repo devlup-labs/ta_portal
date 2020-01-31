@@ -2,9 +2,9 @@
     div
         v-row
             v-col(cols="6")
-                TACoordinator
+                TACoordinator(@change = "selected")
             v-col(cols="6")
-                AssignTA
+                AssignTA(:show ="show")
 </template>
 
 <script>
@@ -15,6 +15,15 @@ export default {
   components: {
     TACoordinator,
     AssignTA
+  },
+  data: () => ({
+    code: "",
+    show: false
+  }),
+  methods: {
+    selected(course) {
+      this.show = !!course.code;
+    }
   }
 };
 </script>

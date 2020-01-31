@@ -73,7 +73,7 @@ class AssignTaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TeachingAssistantProfile
-        fields = ['id', 'roll_no', 'availability', 'name']
+        fields = ['id', 'roll_no', 'availability', 'name', 'program']
 
     def get_availability(self, instance):
         return 8 - instance.assignment_set.filter(is_active=True).aggregate(

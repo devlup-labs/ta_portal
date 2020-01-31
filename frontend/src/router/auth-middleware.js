@@ -20,7 +20,7 @@ function ProfileTypeGuardGenerator(profileType, metaOption) {
     if (to.matched.some(record => record.meta[metaOption])) {
       if (store.getters["auth/profileType"] !== profileType) {
         next({
-          name: "login",
+          name: "profile",
           query: { next: to.fullPath }
         });
       } else {

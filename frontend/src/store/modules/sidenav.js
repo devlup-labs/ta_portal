@@ -23,13 +23,13 @@ const state = {
     {
       icon: "mdi-notebook",
       text: "Current Assignments",
-      name: "ta-assignments",
+      name: "assign",
       profileType: "ta-coordinator"
     },
     {
       icon: "mdi-notebook",
       text: "Past Assignments",
-      name: "ta-assignments",
+      name: "assign",
       profileType: "ta-coordinator"
     },
     {

@@ -11,6 +11,7 @@ import ApproveCurrent from "../views/ApproveCurrent";
 import ApprovePast from "../views/ApprovePast";
 import PastRelease from "../views/PastRelease";
 import CurrentRelease from "../views/CurrentRelease";
+import TACoordi from "../views/TACoordi";
 Vue.use(Router);
 
 const router = new Router({
@@ -39,43 +40,43 @@ const router = new Router({
       path: "/currenttarelease",
       name: "currenttarelease",
       component: CurrentRelease,
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true, officeOnly: true }
     },
     {
       path: "/pasttarelease",
       name: "pasttarelease",
       component: PastRelease,
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true, officeOnly: true }
     },
     {
       path: "/current",
       name: "current",
       component: Current,
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true, taOnly: true }
     },
     {
       path: "/past",
       name: "past",
       component: Past,
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true, taOnly: true }
     },
     {
       path: "/approve-current",
       name: "approve-current",
       component: ApproveCurrent,
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true, taSupervisorOnly: true }
     },
     {
       path: "/approve-past",
       name: "approve-past",
-      component: ApprovePast
-      //meta: { requiresAuth: true }
+      component: ApprovePast,
+      meta: { requiresAuth: true, taSupervisorOnly: true }
     },
     {
-      path: "/ta-assignments",
-      name: "ta-assignments",
-      component: TaAssignment,
-      meta: { requiresAuth: true }
+      path: "/assign",
+      name: "assign",
+      component: TACoordi,
+      meta: { requiresAuth: true, taCoordinatorOnly: true }
     }
   ]
 });

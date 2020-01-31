@@ -119,6 +119,7 @@ export default {
           password: this.password
         })
         .then(() => {
+          this.$store.dispatch("auth/fetchProfileType");
           if (this.$route.query.next) this.$router.push(this.$route.query.next);
           else this.$router.push({ name: "profile" });
         });

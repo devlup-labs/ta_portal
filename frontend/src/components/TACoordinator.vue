@@ -1,35 +1,52 @@
 <template lang="pug">
-    div
-        h4 SEMESTER I, AY 2019-2020
-        v-data-table.elevation-1(
-            :headers='headers'
-            :itmes='Course'
-            sort-by='Course'
-            show-select)
-        v-row
-            v-col(cols="8")
-                v-btn Save Assignment
-                v-btn Reset
-</template>n
+    v-data-table.elevation-1(
+        v-model="selected"
+        :headers="headers"
+        :items="courseList"
+        :single-select="singleSelect"
+        item-key="code"
+        show-select)
+</template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
+  name: "TaAssignmentCard",
   data: () => ({
-    dialog: false,
+    singleSelect: true,
+    courseSelected: false,
+    selected: [],
     headers: [
-      { text: "Course", value: "Course" },
-      { text: "TA Supervisor", value: "TASupervisor" },
-      { text: "Required", value: "Required" },
-      { text: "Assigned", value: "Assigned" }
-    ],
-    defaultItem: {
-      Course: "",
-      TASupervisor: "",
-      Required: "",
-      Assigned: ""
+      { text: "Course Code", value: "code" },
+      { text: "Course Name", value: "name" },
+      { text: "Ta Supervisor", value: "supervisor_name" },
+      { text: "Required TA", value: "tas_required" },
+      { text: "Assigned TA", value: "assigned_ta" }
+    ]
+  }),
+  methods: {
+    ...mapActions("taCoordinator", ["fetchCourseList"])
+  },
+  computed: {
+    ...mapGetters("taCoordinator", ["courseList"])
+  },
+  watch: {
+    selected: function(newSelected, oldSelected) {
+      if (newSelected[0]) {
+        this.$emit("change", newSelected[0]);
+      } else {
+        this.$emit("change", "");
+      }
     }
-  })
+  },
+  beforeMount() {
+    this.fetchCourseList();
+  }
 };
 </script>
 
-<style scoped></style>
+<style>
+thead.v-data-table-header tr {
+  background-color: #ebfdfd;
+}
+</style>
