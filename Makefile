@@ -13,3 +13,6 @@ dev-start: .env
 
 dev-stop:
 	@docker-compose down
+
+dev-logs:
+	@docker-compose logs -f

@@ -8,6 +8,8 @@ services:
     container_name: django
     restart: unless-stopped
     env_file: .env
+    environment:
+      - DB_HOST=postgresql
     ports:
       - 8000:8000
     volumes:
@@ -16,7 +18,12 @@ services:
       - postgresql
     networks:
       - app-network
-    command: python manage.py runserver 0.0.0.0:8000
+    command:
+      - /bin/sh
+      - -c
+      - |
+        python manage.py migrate
+        python manage.py runserver 0.0.0.0:8000
   vue:
     build:
       context: frontend
