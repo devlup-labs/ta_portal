@@ -21,7 +21,7 @@ const router = new Router({
       path: "/login",
       name: "login",
       component: Login,
-      meta: { hide: ["sidenav"] }
+      meta: { hide: ["sidenav"], fillHeight: true }
     },
     {
       path: "/logout",

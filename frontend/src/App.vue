@@ -3,7 +3,7 @@
         Header(v-if="showAppBar" :navIcon="showSidenav" @toggleDrawer="drawer = !drawer")
         Sidenav(v-if="showSidenav" :drawer="drawer")
         v-content
-            v-container(fluid fill-height)
+            v-container(fluid :fill-height="$route.meta.fillHeight")
                 router-view
 </template>
 
@@ -22,7 +22,7 @@ export default {
   }),
   methods: {
     isPropHidden(propName) {
-      const routeMeta = this.$router.currentRoute.meta;
+      const routeMeta = this.$route.meta;
       return (
         routeMeta.hasOwnProperty("hide") && routeMeta.hide.includes(propName)
       );
