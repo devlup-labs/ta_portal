@@ -79,7 +79,7 @@ const actions = {
       })
       .catch(err => commit("SET_ERROR", err));
   },
-  saveTaProfile({ commit, state }) {
+  saveTaProfile({ commit, state, dispatch }) {
     httpClient
       .patch(`/api/accounts/users/${state.taProfile.user}/`, {
         first_name: state.user.first_name,
@@ -97,6 +97,7 @@ const actions = {
           })
           .then(response => {
             commit("SET_TA_PROFILE", response.data);
+            dispatch('messages/showMessage', {message: 'Profile updated successfully', color: 'success'}, {root: true})
           })
           .catch(err => console.log(err));
       })
