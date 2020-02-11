@@ -16,3 +16,6 @@ dev-stop:
 
 dev-logs:
 	@docker-compose logs -f
+
+exec:
+	@docker exec -it $$(echo "$$(docker ps --filter "name=django")" | awk 'NR > 1 {print $$1}') sh

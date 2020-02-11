@@ -15,49 +15,28 @@ function AuthGuard(to, from, next) {
   }
 }
 
-function TaOnly(to, from, next) {
-  if (to.matched.some(record => record.meta.taOnly)) {
-    if (store.getters["auth/profileType"] !== "ta") {
-      next({
-        name: "login",
-        query: { next: to.fullPath }
-      });
+function ProfileTypeGuardGenerator(profileType, metaOption) {
+  return (to, from, next) => {
+    if (to.matched.some(record => record.meta[metaOption])) {
+      if (store.getters["auth/profileType"] !== profileType) {
+        next({
+          name: "login",
+          query: { next: to.fullPath }
+        });
+      } else {
+        next();
+      }
     } else {
       next();
     }
-  } else {
-    next();
-  }
+  };
 }
 
-function TaSupervisorOnly(to, from, next) {
-  if (to.matched.some(record => record.meta.taSupervisorOnly)) {
-    if (store.getters["auth/profileType"] !== "ta-supervisor") {
-      next({
-        name: "login",
-        query: { next: to.fullPath }
-      });
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
-}
+const guards = [
+  AuthGuard,
+  ProfileTypeGuardGenerator("ta", "taOnly"),
+  ProfileTypeGuardGenerator("ta-supervisor", "taSupervisorOnly"),
+  ProfileTypeGuardGenerator("ta-coordinator", "taCoordinatorOnly")
+];
 
-function TaCoordinatorOnly(to, from, next) {
-  if (to.matched.some(record => record.meta.taCoordinatorOnly)) {
-    if (store.getters["auth/profileType"] !== "ta-coordinator") {
-      next({
-        name: "login",
-        query: { next: to.fullPath }
-      });
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
-}
-
-export { AuthGuard, TaOnly, TaSupervisorOnly, TaCoordinatorOnly };
+export { guards };
