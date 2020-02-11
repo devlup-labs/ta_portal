@@ -67,21 +67,21 @@ class FeedbackViewSet(viewsets.ModelViewSet):
         if self.action == 'past':
             return self.queryset.filter(
                 assignment__teaching_assistant__user=self.request.user).exclude(
-                date_submitted__month=today.month)
+                date_submitted__month=today.month, date_submitted__year=today.year)
         elif self.action == 'current':
             return self.queryset.filter(
                 assignment__teaching_assistant__user=self.request.user,
-                date_submitted__month=today.month)
+                date_submitted__month=today.month, date_submitted__year=today.year)
         elif self.action == 'submit':
             return Assignment.objects.filter(
                 teaching_assistant__user=self.request.user
             ).exclude(id__in=Feedback.objects.filter(
                 assignment__teaching_assistant__user=self.request.user,
-                date_submitted__month=today.month).values_list('assignment'))
+                date_submitted__month=today.month, date_submitted__year=today.year).values_list('assignment'))
         elif self.action == 'approval_current':
             return self.queryset.filter(
                 assignment__course__supervisor__user=self.request.user,
-                date_submitted__month=today.month,
+                date_submitted__month=today.month, date_submitted__year=today.year,
                 status="1"
             )
         else:

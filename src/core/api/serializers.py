@@ -1,3 +1,4 @@
+from django.conf import settings
 from rest_framework import serializers
 
 from core.models import Course, Feedback, Assignment
@@ -76,5 +77,5 @@ class AssignTaSerializer(serializers.ModelSerializer):
         fields = ['id', 'roll_no', 'availability', 'name', 'program']
 
     def get_availability(self, instance):
-        return 8 - instance.assignment_set.filter(is_active=True).aggregate(
-                                                                Sum('assigned_hours'))['assigned_hours__sum']
+        return settings.MAX_TA_HOURS - instance.assignment_set.filter(is_active=True).aggregate(
+            Sum('assigned_hours'))['assigned_hours__sum']

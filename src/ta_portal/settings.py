@@ -183,3 +183,5 @@ SOCIAL_AUTH_PIPELINE = (
 )
 
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'last_name', 'email']
+
+MAX_TA_HOURS = 8
