@@ -7,8 +7,8 @@ verify_ssl = true
 flake8 = "*"
 
 [packages]
-django = "==2.2.8"
-psycopg2 = "==2.7.5"
+django = "==2.2.9"
+psycopg2 = "==2.8.4"
 django-decouple = "==2.1"
 social-auth-app-django = "==2.1.0"
 djangorestframework = "==3.10.2"

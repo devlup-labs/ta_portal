@@ -1,0 +1,63 @@
+version: '3'
+services:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: devluplabs/ta-portal-backend
+    container_name: django
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - 8000:8000
+    volumes:
+      - ./src:/app
+    depends_on:
+      - postgresql
+    networks:
+      - app-network
+    command: python manage.py runserver 0.0.0.0:8000
+  vue:
+    build:
+      context: frontend
+      dockerfile: Dockerfile.dev
+    image: devluplabs/ta-portal-frontend
+    container_name: vue
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - BACKEND_HOST=django
+    ports:
+    - 8080:8080
+    volumes:
+    - ./frontend:/app
+    depends_on:
+      - django
+    networks:
+      - app-network
+    command: npm run serve
+  postgresql:
+    image: 'bitnami/postgresql:latest'
+    container_name: postgresql
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - POSTGRESQL_USERNAME=$DB_USER
+      - POSTGRESQL_PASSWORD=$DB_PASSWORD
+      - POSTGRESQL_DATABASE=$DB_NAME
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $DB_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - dbdata:/bitnami/postgresql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  dbdata:
