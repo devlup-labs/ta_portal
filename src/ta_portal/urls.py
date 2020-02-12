@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path, re_path
 from django.contrib.auth.views import LogoutView
-from core.views import Pdf
 
 from ta_portal.views import VueView
 
@@ -24,7 +23,6 @@ urlpatterns = [
     path('', include('social_django.urls', namespace='social')),
     path('logout/', LogoutView.as_view(next_page='/login'), name='logout'),
     path('admin/', admin.site.urls),
-    path('pdf/<int:mon>/<int:yr>/<int:program>/', Pdf.as_view(), name='pdf'),
     path('api/', include("api.urls"))
 ]
 

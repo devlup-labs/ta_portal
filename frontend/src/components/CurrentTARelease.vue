@@ -1,18 +1,19 @@
 <template lang="pug">
-    div
-        h4.pa-5 {{ currentDate() }}
-        v-data-table.elevation-1(
-            :headers='headers'
-            item-key='programme'
-            :items='feedbackCount'
-            sort-by='programme')
-            template(v-slot:item.reports='{ item }')
-                a(:href= " '//' + `${item.link}`" target="_blank") View
+  div
+    h4.pa-5 {{ currentDate() }}
+    v-data-table.elevation-1(
+      :headers='headers'
+      item-key='program'
+      :items='feedbackCount'
+      sort-by='program')
+      template(v-slot:item.reports='{ item }')
+        a(:href="item.link" target="_blank") View & Print Approved List
 
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+
 const monthNames = [
   "January",
   "February",
@@ -30,7 +31,7 @@ const monthNames = [
 export default {
   data: () => ({
     headers: [
-      { text: "Programme", value: "programme" },
+      { text: "Program", value: "program" },
       { text: "Submitted", value: "submitted" },
       { text: "Approved", value: "approved" },
       { text: "Rejected", value: "rejected" },

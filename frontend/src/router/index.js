@@ -2,7 +2,6 @@ import Vue from "vue";
 import Router from "vue-router";
 import Login from "../views/Login";
 import Profile from "../views/Profile";
-import TaAssignment from "../views/TaAssignment";
 import { guards } from "./auth-middleware";
 import Logout from "../views/Logout";
 import Past from "../views/Past";

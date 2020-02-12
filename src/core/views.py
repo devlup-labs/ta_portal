@@ -1,29 +1,35 @@
+from io import BytesIO
+
+from django.http import HttpResponse
+from django.template.loader import get_template
 from django.views.generic import View
-import datetime
-from .render import Render
+from datetime import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.admin.views.decorators import staff_member_required
-from django.utils.decorators import method_decorator
 from accounts.models import TeachingAssistantProfile
+import xhtml2pdf.pisa as pisa
 
 
-@method_decorator(staff_member_required, name='dispatch')
-class Pdf(View, LoginRequiredMixin):
-
-    def get(self, request, mon, yr, program):
-        date = datetime.datetime.now().strftime("%d")
-        month = datetime.date(yr, mon, 1).strftime('%b')
+class PDFRenderView(View, LoginRequiredMixin):
+    def get(self, request, month, year, program):
         tas = TeachingAssistantProfile.objects.filter(
             program=program, assignment__feedback__status=2,
-            assignment__feedback__date_approved__month=mon,
-            assignment__feedback__date_approved__year=yr).distinct()
+            assignment__feedback__date_approved__month=month,
+            assignment__feedback__date_approved__year=year).distinct()
         program = tas[0].get_program_display if tas else None
+        now = datetime.now()
         params = {
             'tas': tas,
-            'date': date,
-            'month': month,
-            'year': yr,
+            'now': now,
             'department': "Electrical Engineering",
             'program': program
         }
-        return Render.render('pdf.html', params)
+        return self.render('pdf.html', params)
+
+    @staticmethod
+    def render(template_path, params):
+        template = get_template(template_path)
+        html = template.render(params)
+        response = BytesIO()
+        pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), response)
+        return HttpResponse(response.getvalue(), content_type='application/pdf') if not pdf.err else HttpResponse(
+            "Error Rendering PDF", status_code=422)
