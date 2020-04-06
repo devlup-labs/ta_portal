@@ -34,6 +34,7 @@
                     @click:append="() => (showPassword = !showPassword)"
                     :rules="passwordRules"
                     :type="showPassword ? 'text' : 'password'"
+                    @keyup.enter.native="login"
                     min="8"
                     required
                   )
