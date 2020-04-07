@@ -9,7 +9,6 @@ A portal for Management of Teaching Assistants in IIT Jodhpur.
 Ensure that you have installed [Docker](https://docs.docker.com/install/) (with [Docker Compose](https://docs.docker.com/compose/install/)).
 
 Run the development server:
-
 ```
 cd <project_directory_name>  # ta_portal
 make dev-start
