@@ -31,8 +31,6 @@ The portal consists of **4 kinds** of users:
 
 ![Office_2](sceenshots/office_2.png)  
 
-
-
 ## Getting Started
 
 Ensure that you have installed [Docker](https://docs.docker.com/install/) (with [Docker Compose](https://docs.docker.com/compose/install/)).
