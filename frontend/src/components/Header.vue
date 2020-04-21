@@ -33,10 +33,15 @@ export default {
   data() {
     return {
       menu: [
-        { title: "View Profile", to: { name: "profile" } },
+        { title: "Change Password", to: { name: "change-password" } },
         { title: "Logout", to: { name: "logout" } }
       ]
     };
+  },
+  mounted() {
+    if (this.$store.getters["auth/profileType"] === "ta") {
+      this.menu.unshift({ title: "View Profile", to: { name: "profile" } });
+    }
   }
 };
 </script>
