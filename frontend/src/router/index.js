@@ -11,6 +11,7 @@ import ApprovePast from "../views/ApprovePast";
 import PastRelease from "../views/PastRelease";
 import CurrentRelease from "../views/CurrentRelease";
 import TACoordi from "../views/TACoordi";
+import ChangePassword from "../views/ChangePassword";
 Vue.use(Router);
 
 const router = new Router({
@@ -33,6 +34,12 @@ const router = new Router({
       path: "/profile",
       name: "profile",
       component: Profile,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: "/change-password",
+      name: "change-password",
+      component: ChangePassword,
       meta: { requiresAuth: true }
     },
     {

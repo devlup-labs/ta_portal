@@ -2,14 +2,15 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 
 from accounts.api.serializers import TeachingAssistantProfileSerializer, UserSerializer, \
-    TeachingAssistantCoordinatorProfileSerializer, TeachingAssistantSupervisorProfileSerializer, OfficeProfileSerializer
+    TeachingAssistantCoordinatorProfileSerializer, TeachingAssistantSupervisorProfileSerializer, \
+    OfficeProfileSerializer, ChangePasswordSerializer
 
 from accounts.models import TeachingAssistantProfile, TeachingAssistantCoordinatorProfile, \
     TeachingAssistantSupervisorProfile, OfficeProfile
 from django.contrib.auth.models import User
-from rest_framework.generics import get_object_or_404
+from rest_framework.generics import get_object_or_404, UpdateAPIView
 from rest_framework.decorators import action
-
+from django.contrib.auth import update_session_auth_hash
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -84,3 +85,27 @@ class TeachingAssistantSupervisorViewSet(viewsets.ModelViewSet):
 class OfficeViewSet(viewsets.ModelViewSet):
     serializer_class = OfficeProfileSerializer
     queryset = OfficeProfile.objects.all()
+
+
+class ChangePasswordView(UpdateAPIView):
+    serializer_class = ChangePasswordSerializer
+    model = User
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            # Check old password
+            if not self.object.check_password(serializer.data.get("old_password")):
+                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+                # set_password also hashes the password that the user will get
+            self.object.set_password(serializer.data.get("new_password"))
+            self.object.save()
+            update_session_auth_hash(request, self.object)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
