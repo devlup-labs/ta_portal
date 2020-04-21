@@ -50,13 +50,11 @@ const actions = {
       })
       .then(() => {
         dispatch("fetchUnSubmittedAssignments");
-        dispatch("fetchCurrentAssignments");
       });
   },
   submitCurrentAssignment({ dispatch }, currentAssignment) {
     httpClient.post("api/core/feedbacks/", currentAssignment).then(() => {
       dispatch("fetchUnSubmittedAssignments");
-      dispatch("fetchCurrentAssignments");
     });
   }
 };
