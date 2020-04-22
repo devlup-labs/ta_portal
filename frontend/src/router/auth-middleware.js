@@ -36,7 +36,8 @@ const guards = [
   AuthGuard,
   ProfileTypeGuardGenerator("ta", "taOnly"),
   ProfileTypeGuardGenerator("ta-supervisor", "taSupervisorOnly"),
-  ProfileTypeGuardGenerator("ta-coordinator", "taCoordinatorOnly")
+  ProfileTypeGuardGenerator("ta-coordinator", "taCoordinatorOnly"),
+  ProfileTypeGuardGenerator("office", "officeOnly")
 ];
 
 export { guards };

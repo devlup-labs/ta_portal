@@ -12,7 +12,7 @@
                         img(src="../assets/account_box-24px.svg")
             v-list
                 v-list-item(
-                    v-for="(item, i) in menu"
+                    v-for="(item, i) in menuItems"
                     :key="i"
                     @click=""
                     :to="item.to")
@@ -27,20 +27,23 @@ export default {
   props: {
     navIcon: Boolean
   },
-  computed: {
-    ...mapGetters("auth", ["isAuthenticated"])
-  },
   data() {
     return {
       menu: [
+        { title: "View Profile", to: { name: "profile" }, profileType: "ta" },
         { title: "Change Password", to: { name: "change-password" } },
         { title: "Logout", to: { name: "logout" } }
       ]
     };
   },
-  mounted() {
-    if (this.$store.getters["auth/profileType"] === "ta") {
-      this.menu.unshift({ title: "View Profile", to: { name: "profile" } });
+  computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
+    menuItems() {
+      return this.menu.filter(
+        e =>
+          e.profileType === this.$store.getters["auth/profileType"] ||
+          e.profileType == null
+      );
     }
   }
 };
