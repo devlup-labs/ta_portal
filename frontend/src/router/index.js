@@ -83,6 +83,10 @@ const router = new Router({
       name: "assign",
       component: TACoordi,
       meta: { requiresAuth: true, taCoordinatorOnly: true }
+    },
+    {
+      path: "*",
+      redirect: "/login"
     }
   ]
 });
