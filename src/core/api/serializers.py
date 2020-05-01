@@ -78,5 +78,4 @@ class AssignTaSerializer(serializers.ModelSerializer):
 
     def get_availability(self, instance):
         return settings.MAX_TA_HOURS - (instance.assignment_set.filter(
-            is_active=True,
-            assigned_hours__isnull=True).aggregate(Sum('assigned_hours'))['assigned_hours__sum'] or 0)
+            is_active=True).aggregate(Sum('assigned_hours'))['assigned_hours__sum'] or 0)
