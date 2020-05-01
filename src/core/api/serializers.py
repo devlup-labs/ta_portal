@@ -23,6 +23,7 @@ class AssignmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Assignment
         fields = '__all__'
+        read_only_fields = ['is_active', ]
 
 
 class FeedbackSerializer(serializers.ModelSerializer):
@@ -71,10 +72,11 @@ class ApproveFeedbackSerializer(serializers.ModelSerializer):
 class AssignTaSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source='user.get_full_name')
     availability = serializers.SerializerMethodField()
+    assigned_hours = serializers.ReadOnlyField(default=0)
 
     class Meta:
         model = TeachingAssistantProfile
-        fields = ['id', 'roll_no', 'availability', 'name', 'program']
+        fields = ['id', 'roll_no', 'availability', 'name', 'program', 'assigned_hours']
 
     def get_availability(self, instance):
         return settings.MAX_TA_HOURS - (instance.assignment_set.filter(

@@ -19,7 +19,7 @@ export default {
     headers: [
       { text: "Course Code", value: "code" },
       { text: "Course Name", value: "name" },
-      { text: "Ta Supervisor", value: "supervisor_name" },
+      { text: "TA Supervisor", value: "supervisor_name" },
       { text: "Required TA", value: "tas_required" },
       { text: "Assigned TA", value: "assigned_ta" }
     ]

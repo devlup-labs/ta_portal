@@ -8,9 +8,8 @@
             :single-select="singleSelect"
             item-key="roll_no"
             show-select)
-            template(v-slot:item.hours="{ item }")
-                v-text-field(
-                    @input ="updateHours({id : item.id, roll_no : item.roll_no, availability : item.availability, name : item.name, program : item.program, hours : $event})")
+            template(v-slot:item.assigned_hours="{ item }")
+                v-text-field(:value="item.assigned_hours" @input="changeHours(item.id, $event)")
             template(v-slot:top)
                 v-toolbar(color="accent" :prominent="false")
                     v-row
@@ -47,13 +46,13 @@ export default {
       { text: "Name", value: "name" },
       { text: "Roll No", value: "roll_no" },
       { text: "Availability", value: "availability" },
-      { text: "Hours", value: "hours" }
+      { text: "Hours", value: "assigned_hours" }
     ]
   }),
   methods: {
-    ...mapActions("assignTa", ["fetchTas"]),
-    updateHours: function(value) {
-      console.log(value);
+    ...mapActions("assignTa", ["fetchTas", "updateHours"]),
+    changeHours(taId, hours) {
+      this.updateHours({ taId, hours });
     }
   },
   computed: {
