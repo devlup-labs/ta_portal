@@ -12,6 +12,7 @@ from rest_framework.generics import get_object_or_404, UpdateAPIView
 from rest_framework.decorators import action
 from django.contrib.auth import update_session_auth_hash
 
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer

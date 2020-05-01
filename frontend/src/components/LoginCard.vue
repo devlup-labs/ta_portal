@@ -3,7 +3,7 @@
     v-row
       v-col.hidden-sm-and-down(md="5" offset-md="1" align-self="center" )
         v-img(src="../assets/iitjlogo.jpg"  height="100" contain position="left-top" )
-        h2.display-1 TA Management
+        h2.display-1 TA Portal
         p.heading.mb-0 Department of Electrical Engineering
         | IIT Jodhpur
       v-col(xs="12" md="6")
