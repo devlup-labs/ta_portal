@@ -6,6 +6,7 @@
             :headers="headers"
             :items="tas"
             :single-select="singleSelect"
+            :search="search"
             item-key="roll_no"
             show-select)
             template(v-slot:item.assigned_hours="{ item }")
@@ -23,11 +24,11 @@
                                     strong SELECTED:&nbsp;
                                     | {{selected.length}} TAs
                                 v-spacer
-                                v-btn(color="primary" small rounded) Save
+                                v-btn(color="primary" small rounded @click="makeTaAssignment") Save
                 v-row
                     v-col
                         v-text-field.mx-4(append-icon="mdi-mic" flat hide-details label="Search"
-                            prepend-icon="mdi-magnify" outlined)
+                            prepend-icon="mdi-magnify" outlined v-model="search")
 
 </template>
 
@@ -40,6 +41,7 @@ export default {
   },
   data: () => ({
     singleSelect: false,
+    search: "",
     selected: [],
     programs: ["PhD", "MTech"],
     headers: [
@@ -53,15 +55,18 @@ export default {
     ...mapActions("assignTa", ["fetchTas", "updateHours"]),
     changeHours(taId, hours) {
       this.updateHours({ taId, hours });
+    },
+    makeTaAssignment() {
+      console.log(this.selected);
     }
   },
   computed: {
     ...mapGetters("assignTa", ["tas"])
   },
   watch: {
-    selected: function(newSelected, oldSelected) {
-      console.log(newSelected);
-    }
+    // selected: function(newSelected, oldSelected) {
+    //   console.log(newSelected);
+    // }
   },
 
   beforeMount() {
