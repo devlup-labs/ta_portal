@@ -14,7 +14,13 @@ const state = {
 };
 
 const getters = {
-  tas: state => state.tas
+  tas: state => selected_program => {
+    if (selected_program === 1) {
+      return state.tas.filter(ta => ta.program === "1");
+    } else {
+      return state.tas.filter(ta => ta.program === "2" || ta.program === "3");
+    }
+  }
 };
 
 const mutations = {

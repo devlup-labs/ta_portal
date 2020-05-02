@@ -4,7 +4,7 @@
             v-if="show"
             v-model="selected"
             :headers="headers"
-            :items="tas"
+            :items="tas(selected_program)"
             :single-select="singleSelect"
             :search="search"
             item-key="roll_no"
@@ -15,7 +15,7 @@
                 v-toolbar(color="accent" :prominent="false")
                     v-row
                         v-col(cols="6")
-                            v-tabs(background-color="transparent")
+                            v-tabs(background-color="transparent" v-model="selected_program")
                                 v-tab(v-for="(program, i) in programs" :key="i")
                                     | {{ program }}
                         v-col(cols="6" align-self="center")
@@ -42,6 +42,7 @@ export default {
   data: () => ({
     singleSelect: false,
     search: "",
+    selected_program: 0,
     selected: [],
     programs: ["PhD", "MTech"],
     headers: [
@@ -63,12 +64,6 @@ export default {
   computed: {
     ...mapGetters("assignTa", ["tas"])
   },
-  watch: {
-    // selected: function(newSelected, oldSelected) {
-    //   console.log(newSelected);
-    // }
-  },
-
   beforeMount() {
     this.fetchTas();
   }
