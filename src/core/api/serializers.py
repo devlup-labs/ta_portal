@@ -69,7 +69,7 @@ class ApproveFeedbackSerializer(serializers.ModelSerializer):
         exclude = ['assignment', 'date_approved', 'status']
 
 
-class AssignTaSerializer(serializers.ModelSerializer):
+class CourseTaSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source='user.get_full_name')
     availability = serializers.SerializerMethodField()
     assigned_hours = serializers.ReadOnlyField(default=0)

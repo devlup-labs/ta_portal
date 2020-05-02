@@ -8,7 +8,7 @@ from core.models import Course, Feedback, Assignment
 from accounts.models import TeachingAssistantProfile
 
 from core.api.serializers import CourseSerializer, FeedbackListSerializer, FeedbackSerializer, AssignmentSerializer, \
-    SubmitFeedbackSerializer, ApproveFeedbackSerializer, AssignTaSerializer
+    SubmitFeedbackSerializer, ApproveFeedbackSerializer, CourseTaSerializer
 
 from datetime import date
 
@@ -31,22 +31,6 @@ class CourseViewSet(viewsets.ModelViewSet):
 class AssignmentViewSet(viewsets.ModelViewSet):
     queryset = Assignment.objects.all()
     serializer_class = AssignmentSerializer
-
-    def get_queryset(self, queryset=None):
-        if self.action == 'assign':
-            return TeachingAssistantProfile.objects.all()
-        else:
-            return super().get_queryset()
-
-    def get_serializer_class(self):
-        if self.action == 'assign':
-            return AssignTaSerializer
-        else:
-            return self.serializer_class
-
-    @action(methods=['get'], detail=False)
-    def assign(self, request, *args, **kwargs):
-        return self.list(request, args, kwargs)
 
 
 class FeedbackViewSet(viewsets.ModelViewSet):
@@ -129,3 +113,11 @@ class FeedbackCountView(APIView):
             'rejected': Feedback.objects.filter(status='3', **kwargs).count(),
             'link': reverse('api:pdf', kwargs={'month': month, 'year': year, 'program': program})
         }
+
+
+class CourseTaList(APIView):
+
+    def get(self, request):
+        tas = TeachingAssistantProfile.objects.all()
+        serializer = CourseTaSerializer(tas, many=True)
+        return Response(serializer.data)

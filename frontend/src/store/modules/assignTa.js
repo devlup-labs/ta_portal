@@ -35,7 +35,7 @@ const mutations = {
 
 const actions = {
   fetchTas({ commit }) {
-    httpClient.get("/api/core/assignments/assign/").then(response => {
+    httpClient.get("/api/core/course-tas/").then(response => {
       commit("SET_TAS", response.data);
     });
   },
