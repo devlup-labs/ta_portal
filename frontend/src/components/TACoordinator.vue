@@ -31,7 +31,7 @@ export default {
     ...mapGetters("taCoordinator", ["courseList"])
   },
   watch: {
-    selected: function(newSelected, oldSelected) {
+    selected: function(newSelected) {
       if (newSelected[0]) {
         this.$emit("change", newSelected[0]);
       } else {

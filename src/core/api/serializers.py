@@ -25,6 +25,15 @@ class AssignmentSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['is_active', ]
 
+    def create(self, validated_data):
+        assignment, created = Assignment.objects.update_or_create(
+            course=validated_data.get('course'),
+            teaching_assistant=validated_data.get('teaching_assistant'),
+            is_active=True,
+            defaults={'assigned_hours': validated_data.get('assigned_hours')}
+        )
+        return assignment
+
 
 class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:

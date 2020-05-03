@@ -60,6 +60,22 @@ const actions = {
   },
   updateHours({ commit }, { taId, hours }) {
     commit("UPDATE_ASSIGNED_HOURS", { taId, hours });
+  },
+  updateTas({ dispatch }, { courseId, selectedTas }) {
+    selectedTas.forEach(selectedTa => {
+      httpClient
+        .post("/api/core/assignments/", {
+          course: courseId,
+          teaching_assistant: selectedTa.id,
+          assigned_hours: selectedTa.assigned_hours
+        })
+        .then();
+    });
+    dispatch(
+      "messages/showMessage",
+      { message: "Successfully assigned TAs", color: "success" },
+      { root: true }
+    );
   }
 };
 

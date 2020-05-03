@@ -53,12 +53,12 @@ export default {
     ]
   }),
   methods: {
-    ...mapActions("assignTa", ["fetchAllTas", "updateHours"]),
+    ...mapActions("assignTa", ["fetchAllTas", "updateHours", "updateTas"]),
     changeHours(taId, hours) {
       this.updateHours({ taId, hours });
     },
     makeTaAssignment() {
-      console.log(this.selected);
+      this.updateTas({ courseId: this.course.id, selectedTas: this.selected});
     }
   },
   computed: {
