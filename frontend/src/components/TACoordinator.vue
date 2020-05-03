@@ -35,7 +35,7 @@ export default {
       if (newSelected[0]) {
         this.$emit("change", newSelected[0]);
       } else {
-        this.$emit("change", "");
+        this.$emit("change", {});
       }
     }
   },
