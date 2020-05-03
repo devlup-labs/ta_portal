@@ -17,8 +17,7 @@ export default {
     AssignTA
   },
   data: () => ({
-    code: "",
-    show: false
+    code: ""
   }),
   methods: {
     selected(course) {
