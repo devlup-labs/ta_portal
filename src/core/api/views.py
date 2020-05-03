@@ -116,8 +116,17 @@ class FeedbackCountView(APIView):
 
 
 class CourseTaList(APIView):
-
-    def get(self, request):
+    
+    def get(self, request, code):
         tas = TeachingAssistantProfile.objects.all()
-        serializer = CourseTaSerializer(tas, many=True)
+        serializer = CourseTaSerializer(tas, many=True, context={'code': code})
+        return Response(serializer.data)
+
+
+class CourseAssignedTaList(APIView):
+
+    def get(self, request, code):
+        tas = TeachingAssistantProfile.objects.filter(
+            id__in=Assignment.objects.filter(is_active=True, course__code=code).values_list('teaching_assistant'))
+        serializer = CourseTaSerializer(tas, many=True, context={'code': code})
         return Response(serializer.data)

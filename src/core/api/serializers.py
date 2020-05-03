@@ -72,7 +72,8 @@ class ApproveFeedbackSerializer(serializers.ModelSerializer):
 class CourseTaSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source='user.get_full_name')
     availability = serializers.SerializerMethodField()
-    assigned_hours = serializers.ReadOnlyField(default=0)
+    # assigned_hours = serializers.ReadOnlyField(default=0)
+    assigned_hours = serializers.SerializerMethodField()
 
     class Meta:
         model = TeachingAssistantProfile
@@ -81,3 +82,10 @@ class CourseTaSerializer(serializers.ModelSerializer):
     def get_availability(self, instance):
         return settings.MAX_TA_HOURS - (instance.assignment_set.filter(
             is_active=True).aggregate(Sum('assigned_hours'))['assigned_hours__sum'] or 0)
+
+    def get_assigned_hours(self, instance):
+        code = self.context.get("code")
+        try:
+            return instance.assignment_set.get(is_active=True, course__code=code).assigned_hours
+        except Exception:
+            return 0
