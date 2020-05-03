@@ -4,7 +4,7 @@
             v-col(cols="6")
                 TACoordinator(@change = "selected")
             v-col(cols="6")
-                AssignTA(:show ="show")
+                AssignTA(:code ="code")
 </template>
 
 <script>
@@ -22,7 +22,7 @@ export default {
   }),
   methods: {
     selected(course) {
-      this.show = !!course.code;
+      this.code = course.code;
     }
   }
 };

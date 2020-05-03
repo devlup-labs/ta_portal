@@ -1,7 +1,7 @@
 <template lang="pug">
     div
         v-data-table.elevation-1(
-            v-if="show"
+            v-if="code"
             v-model="selected"
             :headers="headers"
             :items="tas(selected_program)"
@@ -37,7 +37,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "DutyAssigner",
   props: {
-    show: Boolean
+    code: String
   },
   data: () => ({
     singleSelect: false,
@@ -53,7 +53,7 @@ export default {
     ]
   }),
   methods: {
-    ...mapActions("assignTa", ["fetchTas", "updateHours"]),
+    ...mapActions("assignTa", ["fetchAllTas", "updateHours"]),
     changeHours(taId, hours) {
       this.updateHours({ taId, hours });
     },
@@ -62,10 +62,17 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("assignTa", ["tas"])
+    ...mapGetters("assignTa", ["tas", "assignedTas"])
   },
-  beforeMount() {
-    this.fetchTas();
+  watch: {
+    code: function(course_code) {
+      if (course_code) {
+        this.fetchAllTas(course_code);
+      }
+    },
+    assignedTas: function(newVal) {
+      this.selected = newVal;
+    }
   }
 };
 </script>
