@@ -18,7 +18,7 @@ class Course(models.Model):
 class Assignment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     teaching_assistant = models.ForeignKey(TeachingAssistantProfile, on_delete=models.CASCADE)
-    assigned_hours = models.PositiveIntegerField()
+    assigned_hours = models.DecimalField(max_digits=3, decimal_places=2)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

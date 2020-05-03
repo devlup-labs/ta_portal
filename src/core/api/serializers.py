@@ -81,7 +81,6 @@ class ApproveFeedbackSerializer(serializers.ModelSerializer):
 class CourseTaSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source='user.get_full_name')
     availability = serializers.SerializerMethodField()
-    # assigned_hours = serializers.ReadOnlyField(default=0)
     assigned_hours = serializers.SerializerMethodField()
 
     class Meta:
