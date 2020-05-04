@@ -1,9 +1,9 @@
 <template lang="pug">
     div
         v-row
-            v-col(cols="6")
+            v-col(lg="6" md="12" sm="12")
                 TACoordinator(@change = "selected")
-            v-col(cols="6")
+            v-col(lg="6" md="12" sm="12")
                 AssignTA(:course ="course")
 </template>
 

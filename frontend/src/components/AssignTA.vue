@@ -58,7 +58,7 @@ export default {
       this.updateHours({ taId, hours });
     },
     makeTaAssignment() {
-      this.updateTas({ course: this.course, selectedTas: this.selected});
+      this.updateTas({ course: this.course, selectedTas: this.selected });
     }
   },
   computed: {
