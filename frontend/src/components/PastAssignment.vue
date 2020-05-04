@@ -1,11 +1,11 @@
 <template lang="pug">
-    v-data-table.elevation-1(
-        :headers='headers'
-        :items='pastAssignments'
-        sort-by='date_submitted')
-        template(v-slot:top='')
-            v-toolbar(flat='', color='white')
-                v-divider.mx-4(inset='', vertical='')
+    div
+        h4.pa-5 SEP 2019 SEMESTER I, AY 2019-2020
+        v-data-table.elevation-1(
+            :headers='headers'
+            :items='pastAssignments'
+            sort-by='date_submitted')
+            template(v-slot:top='')
                 v-spacer
                 v-dialog(v-model='dialog', max-width='1000px')
                     v-card.rounded-card
@@ -46,8 +46,8 @@
                                                 readonly)
                                 div(align="right")
                                     v-btn.ma-2(width=200 rounded outlined color="blue" right @click="close") Close
-        template(v-slot:item.status='{ item }')
-            v-icon.mr-2(small='', @click='editItem(item)') {{item.status}} (View Form)
+            template(v-slot:item.status='{ item }')
+                v-icon.mr-2(small='', @click='editItem(item)') {{item.status}} (View Form)
 </template>
 
 <script>

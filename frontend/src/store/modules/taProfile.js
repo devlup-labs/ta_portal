@@ -97,11 +97,27 @@ const actions = {
           })
           .then(response => {
             commit("SET_TA_PROFILE", response.data);
-            dispatch('messages/showMessage', {message: 'Profile updated successfully', color: 'success'}, {root: true})
+            dispatch(
+              "messages/showMessage",
+              { message: "Profile updated successfully", color: "success" },
+              { root: true }
+            );
           })
-          .catch(err => console.log(err));
+          .catch(err =>
+            dispatch(
+              "messages/showMessage",
+              { message: err.response.data.message, color: "error" },
+              { root: true }
+            )
+          );
       })
-      .catch(err => console.log(err));
+      .catch(err =>
+        dispatch(
+          "messages/showMessage",
+          { message: err.response.data.message, color: "error" },
+          { root: true }
+        )
+      );
   },
 
   setFirstName: ({ commit }, firstName) => commit("SET_FIRST_NAME", firstName),

@@ -1,10 +1,14 @@
+from django.urls import reverse
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from core.models import Course, Feedback, Assignment
+from accounts.models import TeachingAssistantProfile
 
 from core.api.serializers import CourseSerializer, FeedbackListSerializer, FeedbackSerializer, AssignmentSerializer, \
-    SubmitFeedbackSerializer, ApproveFeedbackSerializer
+    SubmitFeedbackSerializer, ApproveFeedbackSerializer, CourseTaSerializer
 
 from datetime import date
 
@@ -48,21 +52,21 @@ class FeedbackViewSet(viewsets.ModelViewSet):
         if self.action == 'past':
             return self.queryset.filter(
                 assignment__teaching_assistant__user=self.request.user).exclude(
-                date_submitted__month=today.month)
+                date_submitted__month=today.month, date_submitted__year=today.year)
         elif self.action == 'current':
             return self.queryset.filter(
                 assignment__teaching_assistant__user=self.request.user,
-                date_submitted__month=today.month)
+                date_submitted__month=today.month, date_submitted__year=today.year)
         elif self.action == 'submit':
             return Assignment.objects.filter(
                 teaching_assistant__user=self.request.user
             ).exclude(id__in=Feedback.objects.filter(
                 assignment__teaching_assistant__user=self.request.user,
-                date_submitted__month=today.month).values_list('assignment'))
+                date_submitted__month=today.month, date_submitted__year=today.year).values_list('assignment'))
         elif self.action == 'approval_current':
             return self.queryset.filter(
                 assignment__course__supervisor__user=self.request.user,
-                date_submitted__month=today.month,
+                date_submitted__month=today.month, date_submitted__year=today.year,
                 status="1"
             )
         else:
@@ -83,3 +87,46 @@ class FeedbackViewSet(viewsets.ModelViewSet):
     @action(methods=['get'], detail=False)
     def approval_current(self, request, *args, **kwargs):
         return self.list(request, args, kwargs)
+
+
+class FeedbackCountView(APIView):
+    def get(self, request, month, year):
+        feedback_summary_list = [
+            self.count_feedbacks('1', month, year),
+            self.count_feedbacks('2', month, year),
+            self.count_feedbacks('3', month, year)
+        ]
+        return Response(feedback_summary_list)
+
+    @staticmethod
+    def count_feedbacks(program, month, year):
+        kwargs = {
+            'date_submitted__month': month,
+            'date_submitted__year': year,
+            'assignment__teaching_assistant__program': program
+        }
+        return {
+            'program': dict(TeachingAssistantProfile.PROGRAMS).get(program, program),
+            'submitted': Feedback.objects.filter(**kwargs).count(),
+            'pending': Feedback.objects.filter(status='1', **kwargs).count(),
+            'approved': Feedback.objects.filter(status='2', **kwargs).count(),
+            'rejected': Feedback.objects.filter(status='3', **kwargs).count(),
+            'link': reverse('api:pdf', kwargs={'month': month, 'year': year, 'program': program})
+        }
+
+
+class CourseTaList(APIView):
+    
+    def get(self, request, code):
+        tas = TeachingAssistantProfile.objects.all()
+        serializer = CourseTaSerializer(tas, many=True, context={'code': code})
+        return Response(serializer.data)
+
+
+class CourseAssignedTaList(APIView):
+
+    def get(self, request, code):
+        tas = TeachingAssistantProfile.objects.filter(
+            id__in=Assignment.objects.filter(is_active=True, course__code=code).values_list('teaching_assistant'))
+        serializer = CourseTaSerializer(tas, many=True, context={'code': code})
+        return Response(serializer.data)

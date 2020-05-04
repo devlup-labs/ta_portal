@@ -3,7 +3,7 @@
     v-row
       v-col.hidden-sm-and-down(md="5" offset-md="1" align-self="center" )
         v-img(src="../assets/iitjlogo.jpg"  height="100" contain position="left-top" )
-        h2.display-1 TA Management
+        h2.display-1 TA Portal
         p.heading.mb-0 Department of Electrical Engineering
         | IIT Jodhpur
       v-col(xs="12" md="6")
@@ -34,6 +34,7 @@
                     @click:append="() => (showPassword = !showPassword)"
                     :rules="passwordRules"
                     :type="showPassword ? 'text' : 'password'"
+                    @keyup.enter.native="login"
                     min="8"
                     required
                   )
@@ -119,6 +120,7 @@ export default {
           password: this.password
         })
         .then(() => {
+          this.$store.dispatch("auth/fetchProfileType");
           if (this.$route.query.next) this.$router.push(this.$route.query.next);
           else this.$router.push({ name: "profile" });
         });

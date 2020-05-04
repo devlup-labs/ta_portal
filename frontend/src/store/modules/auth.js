@@ -43,12 +43,19 @@ const mutations = {
 };
 
 const actions = {
-  login({ commit }, { email, password }) {
+  login({ commit, dispatch }, { email, password }) {
     commit("LOGIN_BEGIN");
     return api
       .login(email, password)
       .then(() => commit("LOGIN_SUCCESS"))
-      .catch(err => commit("LOGIN_FAILURE", err.response.data.message));
+      .catch(err => {
+        commit("LOGIN_FAILURE", err.response.data.message);
+        dispatch(
+          "messages/showMessage",
+          { message: "Enter Email or Password Correctly", color: "error" },
+          { root: true }
+        );
+      });
   },
   logout({ commit }) {
     return api.logout().then(() => {

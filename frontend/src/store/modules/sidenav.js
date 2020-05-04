@@ -17,20 +17,32 @@ const state = {
     {
       icon: "mdi-notebook",
       text: "Past Approvals",
-      name: "approve-current",
+      name: "approve-past",
       profileType: "ta-supervisor"
     },
     {
       icon: "mdi-notebook",
       text: "Current Assignments",
-      name: "ta-assignments",
+      name: "assign",
       profileType: "ta-coordinator"
     },
     {
       icon: "mdi-notebook",
       text: "Past Assignments",
-      name: "ta-assignments",
+      name: "assign",
       profileType: "ta-coordinator"
+    },
+    {
+      icon: "mdi-notebook",
+      text: "Current TA Release",
+      name: "currenttarelease",
+      profileType: "office"
+    },
+    {
+      icon: "mdi-notebook",
+      text: "Past TA Release",
+      name: "pasttarelease",
+      profileType: "office"
     },
     { divider: true },
     { heading: "Academics" },

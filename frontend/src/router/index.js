@@ -2,15 +2,16 @@ import Vue from "vue";
 import Router from "vue-router";
 import Login from "../views/Login";
 import Profile from "../views/Profile";
-import TaAssignment from "../views/TaAssignment";
 import { guards } from "./auth-middleware";
 import Logout from "../views/Logout";
 import Past from "../views/Past";
 import Current from "../views/Current";
 import ApproveCurrent from "../views/ApproveCurrent";
+import ApprovePast from "../views/ApprovePast";
 import PastRelease from "../views/PastRelease";
 import CurrentRelease from "../views/CurrentRelease";
 import TACoordi from "../views/TACoordi";
+import ChangePassword from "../views/ChangePassword";
 Vue.use(Router);
 
 const router = new Router({
@@ -36,14 +37,22 @@ const router = new Router({
       meta: { requiresAuth: true }
     },
     {
+      path: "/change-password",
+      name: "change-password",
+      component: ChangePassword,
+      meta: { requiresAuth: true }
+    },
+    {
       path: "/currenttarelease",
       name: "currenttarelease",
-      component: CurrentRelease
+      component: CurrentRelease,
+      meta: { requiresAuth: true, officeOnly: true }
     },
     {
       path: "/pasttarelease",
       name: "pasttarelease",
-      component: PastRelease
+      component: PastRelease,
+      meta: { requiresAuth: true, officeOnly: true }
     },
     {
       path: "/current",
@@ -61,19 +70,23 @@ const router = new Router({
       path: "/approve-current",
       name: "approve-current",
       component: ApproveCurrent,
-      meta: { taSupervisorOnly: true }
+      meta: { requiresAuth: true, taSupervisorOnly: true }
     },
     {
-      path: "/ta-assignments",
-      name: "ta-assignments",
-      component: TaAssignment,
-      meta: { taCoordinatorOnly: true }
+      path: "/approve-past",
+      name: "approve-past",
+      component: ApprovePast,
+      meta: { requiresAuth: true, taSupervisorOnly: true }
     },
     {
       path: "/assign",
       name: "assign",
       component: TACoordi,
       meta: { requiresAuth: true, taCoordinatorOnly: true }
+    },
+    {
+      path: "*",
+      redirect: "/login"
     }
   ]
 });

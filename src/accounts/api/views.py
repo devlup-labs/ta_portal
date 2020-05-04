@@ -2,13 +2,15 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 
 from accounts.api.serializers import TeachingAssistantProfileSerializer, UserSerializer, \
-    TeachingAssistantCoordinatorProfileSerializer, TeachingAssistantSupervisorProfileSerializer
+    TeachingAssistantCoordinatorProfileSerializer, TeachingAssistantSupervisorProfileSerializer, \
+    OfficeProfileSerializer, ChangePasswordSerializer
 
 from accounts.models import TeachingAssistantProfile, TeachingAssistantCoordinatorProfile, \
-    TeachingAssistantSupervisorProfile
+    TeachingAssistantSupervisorProfile, OfficeProfile
 from django.contrib.auth.models import User
-from rest_framework.generics import get_object_or_404
+from rest_framework.generics import get_object_or_404, UpdateAPIView
 from rest_framework.decorators import action
+from django.contrib.auth import update_session_auth_hash
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -28,6 +30,7 @@ class UserViewSet(viewsets.ModelViewSet):
         ta_profile = TeachingAssistantProfile.objects.filter(user=self.request.user)
         ta_supervisor_profile = TeachingAssistantSupervisorProfile.objects.filter(user=self.request.user)
         ta_coordinator_profile = TeachingAssistantCoordinatorProfile.objects.filter(user=self.request.user)
+        office_profile = OfficeProfile.objects.filter(user=self.request.user)
         if ta_profile.exists():
             data = {
                 'type': 'ta'
@@ -41,6 +44,11 @@ class UserViewSet(viewsets.ModelViewSet):
         if ta_coordinator_profile.exists():
             data = {
                 'type': 'ta-coordinator'
+            }
+            return Response(data=data, status=status.HTTP_200_OK)
+        if office_profile.exists():
+            data = {
+                'type': 'office'
             }
             return Response(data=data, status=status.HTTP_200_OK)
         return Response('', status=status.HTTP_204_NO_CONTENT)
@@ -73,3 +81,30 @@ class TeachingAssistantCoordinatorViewSet(viewsets.ModelViewSet):
 class TeachingAssistantSupervisorViewSet(viewsets.ModelViewSet):
     serializer_class = TeachingAssistantSupervisorProfileSerializer
     queryset = TeachingAssistantSupervisorProfile.objects.all()
+
+
+class OfficeViewSet(viewsets.ModelViewSet):
+    serializer_class = OfficeProfileSerializer
+    queryset = OfficeProfile.objects.all()
+
+
+class ChangePasswordView(UpdateAPIView):
+    serializer_class = ChangePasswordSerializer
+    model = User
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            if not self.object.check_password(serializer.data.get("old_password")):
+                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+            self.object.set_password(serializer.data.get("new_password"))
+            self.object.save()
+            update_session_auth_hash(request, self.object)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
