@@ -4,7 +4,7 @@
             v-if="course.code"
             v-model="selected"
             :headers="headers"
-            :items="tas(selected_program)"
+            :items="tas(selectedProgram)"
             :single-select="singleSelect"
             :search="search"
             item-key="roll_no"
@@ -15,7 +15,7 @@
                 v-toolbar(color="accent" :prominent="false")
                     v-row
                         v-col(cols="6")
-                            v-tabs(background-color="transparent" v-model="selected_program")
+                            v-tabs(background-color="transparent" v-model="selectedProgram")
                                 v-tab(v-for="(program, i) in programs" :key="i")
                                     | {{ program }}
                         v-col(cols="6" align-self="center")
@@ -42,7 +42,7 @@ export default {
   data: () => ({
     singleSelect: false,
     search: "",
-    selected_program: 0,
+    selectedProgram: 0,
     selected: [],
     programs: ["PhD", "MTech"],
     headers: [
@@ -58,7 +58,7 @@ export default {
       this.updateHours({ taId, hours });
     },
     makeTaAssignment() {
-      this.updateTas({ courseId: this.course.id, selectedTas: this.selected});
+      this.updateTas({ course: this.course, selectedTas: this.selected});
     }
   },
   computed: {

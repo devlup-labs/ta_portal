@@ -8,7 +8,7 @@ const state = {
       availability: 0,
       name: "",
       program: "",
-      assigned_hours: ""
+      assigned_hours: 0
     }
   ],
   assignedTas: [
@@ -18,14 +18,14 @@ const state = {
       availability: 0,
       name: "",
       program: "",
-      assigned_hours: ""
+      assigned_hours: 0
     }
   ]
 };
 
 const getters = {
-  tas: state => selected_program => {
-    if (selected_program === 1) {
+  tas: state => selectedProgram => {
+    if (selectedProgram === 1) {
       return state.tas.filter(ta => ta.program === "1");
     } else {
       return state.tas.filter(ta => ta.program === "2" || ta.program === "3");
@@ -42,18 +42,21 @@ const mutations = {
     state.assignedTas = assignedTas;
   },
   UPDATE_ASSIGNED_HOURS(state, { taId, hours }) {
-    const index = state.tas.findIndex(ta => ta.id === taId);
-    state.tas[index].assigned_hours = hours;
+    const taIndex = state.tas.findIndex(ta => ta.id === taId);
+    state.tas[taIndex].assigned_hours = hours;
+    const assignedTaIndex = state.assignedTas.findIndex(ta => ta.id === taId);
+    if (assignedTaIndex !== -1)
+      state.assignedTas[assignedTaIndex].assigned_hours = hours;
   }
 };
 
 const actions = {
-  fetchAllTas({ commit }, course_code) {
-    httpClient.get(`/api/core/course-tas/${course_code}/`).then(response => {
+  fetchAllTas({ commit }, courseCode) {
+    httpClient.get(`/api/core/course-tas/${courseCode}/`).then(response => {
       commit("SET_TAS", response.data);
     });
     httpClient
-      .get(`/api/core/course-assigned-tas/${course_code}/`)
+      .get(`/api/core/course-assigned-tas/${courseCode}/`)
       .then(response => {
         commit("SET_ASSIGNED_TAS", response.data);
       });
@@ -61,11 +64,11 @@ const actions = {
   updateHours({ commit }, { taId, hours }) {
     commit("UPDATE_ASSIGNED_HOURS", { taId, hours });
   },
-  updateTas({ dispatch }, { courseId, selectedTas }) {
+  updateTas({ dispatch }, { course, selectedTas }) {
     selectedTas.forEach(selectedTa => {
       httpClient
         .post("/api/core/assignments/", {
-          course: courseId,
+          course: course.id,
           teaching_assistant: selectedTa.id,
           assigned_hours: selectedTa.assigned_hours
         })
