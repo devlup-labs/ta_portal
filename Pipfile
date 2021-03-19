@@ -11,7 +11,7 @@ django = "==2.2.9"
 psycopg2 = "==2.8.4"
 django-decouple = "==2.1"
 social-auth-app-django = "==2.1.0"
-djangorestframework = "==3.10.2"
+djangorestframework = "==3.11.2"
 
 [requires]
 python_version = "3.6"
